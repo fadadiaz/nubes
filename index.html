@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía Interactiva para la Identificación de Nubes</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400&display=swap">
+  <link rel="stylesheet" href="https://use.typekit.net/oer0pgk.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+      font-family: 'Alegreya Sans', sans-serif;
+      color: #000;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 90%;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin: 20px;
+    }
+
+    .card h2 {
+      font-family: 'more-pro-cond-light', sans-serif;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .button {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Alegreya Sans', sans-serif;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #333;
+    }
+
+    .restart {
+      background-color: transparent;
+      color: #000;
+      border: none;
+      margin-top: 10px;
+    }
+
+    .restart:hover {
+      background-color: #f0f0f0;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 15px;
+      }
+
+      .card h2 {
+        font-size: 20px;
+      }
+
+      .card p {
+        font-size: 16px;
+      }
+
+      .button {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <h2>Identificador de Nubes</h2>
+    <p id="question">¿Se ven rayos o se oyen truenos?</p>
+    <div class="button-container" id="buttons">
+      <button class="button" onclick="answer('yes')">Sí</button>
+      <button class="button" onclick="answer('no')">No</button>
+    </div>
+  </div>
+
+  <script>
+    const decisionTree = {
+      q1: {
+        question: "¿Se ven rayos o se oyen truenos?",
+        yes: {
+          result: {
+            name: "Cumulonimbus",
+            description: "Nube en forma de enorme torre, a veces con yunque. Posibilidad de tormenta."
+          }
+        },
+        no: "q2"
+      },
+      q2: {
+        question: "¿Se ven claramente protuberancias o cúpulas?",
+        yes: "q3",
+        no: "q4"
+      },
+      q3: {
+        question: "En el tercio alto de esta nube, ¿es nítido el contorno?",
+        yes: {
+          result: {
+            name: "Cumulonimbus",
+            description: "Nube en forma de enorme torre, a veces con yunque. Posibilidad de tormenta."
+          }
+        },
+        no: {
+          result: {
+            name: "Cumulus",
+            description: "Nube de aspecto algodonoso y separada de otras nubes, con contornos bien delimitados."
+          }
+        }
+      },
+      q4: {
+        question: "¿Se observa una capa uniforme, continua o discontinua, sin rodillos ni elementos distintivos?",
+        yes: "q5",
+        no: "q6"
+      },
+      q5: {
+        question: "¿Aparecen el Sol o la Luna en forma de parche luminoso?",
+        yes: {
+          result: {
+            name: "Cirrostratus",
+            description: "Velo nuboso transparente, de aspecto blanquecino o fibroso, que no tapa las sombras, da lugar al fenómeno del halo. (Nube de tipo stratus)"
+          }
+        },
+        no: "q7"
+      },
+      q7: {
+        question: "¿Observa una capa alta en forma de lámina y de color gris o entre azulado y oscuro?",
+        yes: {
+          result: {
+            name: "Altostratus",
+            description: "Capa nubosa alargada y uniforme, que tapa las sombras aun cuando se pueden ver el Sol o la Luna vagamente, como a través de un vidrio deslustrado. (Nube de tipo stratus)"
+          }
+        },
+        no: "q8"
+      },
+      q8: {
+        question: "¿Hay una capa baja densa y alargada poco definida que puede traer precipitaciones?",
+        yes: {
+          result: {
+            name: "Nimbostratus",
+            description: "Nube oscura de lluvia o nube clara de nieve. Suele traer precipitaciones continuas de lluvia, nieve o gránulos de hielo. (Nube de tipo stratus)"
+          }
+        },
+        no: {
+          result: {
+            name: "Stratus",
+            description: "Capa gris blanquecina en el nivel bajo, que puede generar llovizna o nieve en granos. Cuando el Sol o la Luna son visibles, su contorno está definido. Puede estar formado por elementos separados. (Nube de tipo stratus)"
+          }
+        }
+      },
+      q6: {
+        question: "¿Hay filamentos o fibras blancos y finos?",
+        yes: {
+          result: {
+            name: "Cirrus",
+            description: "Ganchos, plumas, bandas o bancos con un brillo sedoso."
+          }
+        },
+        no: "q9"
+      },
+      q9: {
+        question: "¿Son todos los elementos pequeños que un dedo (brazo estirado)?",
+        yes: {
+          result: {
+            name: "Cirrocumulus",
+            description: "Capa delgada de pequeños gránulos u ondas, de color blanco puro, situados en el nivel alto. Tamaño < 1°."
+          }
+        },
+        no: "q10"
+      },
+      q10: {
+        question: "¿Son todos los elementos redondos del tamaño de 1 a 3 dedos (brazo estirado)?",
+        yes: {
+          result: {
+            name: "Altocumulus",
+            description: "Banco, manto o capa estructurado de nubes blancas o grises (de torreta, lenticulares o aborregadas), con ondulaciones o rodillos. Anchura: entre 1 – 3°."
+          }
+        },
+        no: {
+          result: {
+            name: "Stratocumulus",
+            description: "Campo, rodillo o bulto de nubes grises o blanquecinas, con contornos redondeados y situadas en el nivel bajo. Elementos dispuestos de forma regular. Anchura: 5 – 10° (5 dedos)."
+          }
+        }
+      }
+    };
+
+    let currentState = "q1";
+
+    function answer(response) {
+      const currentNode = decisionTree[currentState];
+      const next = currentNode[response];
+
+      if (typeof next === "string") {
+        currentState = next;
+        displayQuestion();
+      } else if (next && next.result) {
+        displayResult(next.result);
+      }
+    }
+
+    function displayQuestion() {
+      const card = document.getElementById("card");
+      const question = document.getElementById("question");
+      const buttons = document.getElementById("buttons");
+
+      card.querySelector("h2").textContent = "Identificador de Nubes";
+      question.textContent = decisionTree[currentState].question;
+      buttons.innerHTML = `
+        <button class="button" onclick="answer('yes')">Sí</button>
+        <button class="button" onclick="answer('no')">No</button>
+      `;
+    }
+
+    function displayResult(result) {
+      const card = document.getElementById("card");
+      const question = document.getElementById("question");
+      const buttons = document.getElementById("buttons");
+
+      card.querySelector("h2").textContent = result.name;
+      question.textContent = result.description;
+      buttons.innerHTML = `
+        <button class="button restart" onclick="restart()">Volver a empezar</button>
+      `;
+    }
+
+    function restart() {
+      currentState = "q1";
+      displayQuestion();
+    }
+  </script>
+</body>
+</html>
