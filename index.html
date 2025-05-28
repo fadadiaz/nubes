@@ -23,6 +23,9 @@
 
     .card {
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      max-width: 330px;
     }
   
     .card h2 {
@@ -58,42 +61,105 @@
       border: none;
       margin-top: 10px;
     }
-  
-    /* Line styles for each direction */
+
+    .back-button {
+      background-color: #fff;
+      color: #000;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: 'Alegreya Sans', sans-serif;
+    }
+
+    .progress-container {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      height: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 1px;
+      background-color: #000;
+      position: relative;
+    }
+
+    .progress-dot {
+      width: 5px;
+      height: 5px;
+      background-color: #000;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      transition: left 0.3s ease;
+    }
+
+    /* 
     .derecha::after {
     content: '';
-    position: absolute;
     width: 50%;
     height: 1px;
-    background-color: #000;
-    pointer-events: none;
     margin: 8px 0 0 20px;
     }
   
     .abajo::after {
-    content: '';
-    position: absolute;
     width: 1px;
-    height: 100%;
-    background-color: #000;
-    pointer-events: none;
+    height: 50%;
     margin: 43px 0 0 -9px;
     }
   
     .izquierda::before {
-    content: '';
-    position: absolute;
     width: 50%;
     height: 1px;
-    background-color: #000;
-    pointer-events: none;
     left: 0;
     margin: 9px 0 0 -30px;
+    } */
+    .button::after, .button::before {
+    content: '';
+    position: absolute;
+    background-color: #000;
+    pointer-events: none;
+    }
+    #q1-yes::after {
+    width: 50%;
+    height: 1px;
+    margin: 8px 0 0 20px;
+    }
+    #q1-no::after {
+    width: 1px;
+    height: 50%;
+    margin: 43px 0 0 -9px;
+    }
+    #q2-yes::before {
+    width: 50%;
+    height: 1px;
+    left: 0;
+    margin: 9px 0 0 -30px;
+    }
+    #q2-no::after {
+    content: '';
+    width: 50%;
+    height: 1px;
+    margin: 8px 0 0 20px;
     }
   </style>
 </head>
 <body>
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div class="progress-dot" id="progress-dot"></div>
+    </div>
+  </div>
   <div class="card" id="card">
+    <button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">Volver</button>
     <h2>Identificador de Nubes</h2>
     <p id="question">¿Se ven rayos o se oyen truenos?</p>
     <div class="button-container" id="buttons">
@@ -212,8 +278,13 @@
     };
 
     let currentState = "q1";
+    let history = []; // Track the history of states and answers
+    const maxSteps = 5; // Longest path in the decision tree
 
     function answer(response) {
+      // Save current state and response to history before moving forward
+      history.push({ state: currentState, response: response });
+
       const currentNode = decisionTree[currentState];
       const next = currentNode[response];
 
@@ -222,6 +293,26 @@
         displayQuestion();
       } else if (next && next.result) {
         displayResult(next.result);
+      }
+      updateProgress();
+      toggleBackButton();
+    }
+
+    function goBack() {
+      if (history.length > 0) {
+        // Remove the last entry from history
+        history.pop();
+        // Get the previous state from the last history entry, or reset to q1
+        const previous = history.length > 0 ? history[history.length - 1] : null;
+        if (previous) {
+          currentState = previous.state;
+          displayQuestion();
+        } else {
+          currentState = "q1";
+          displayQuestion();
+        }
+        updateProgress();
+        toggleBackButton();
       }
     }
 
@@ -252,8 +343,33 @@
 
     function restart() {
       currentState = "q1";
+      history = []; // Clear history on restart
       displayQuestion();
+      updateProgress();
+      toggleBackButton();
     }
+
+    function updateProgress() {
+      const progressDot = document.getElementById("progress-dot");
+      const progressBarWidth = document.querySelector(".progress-bar").offsetWidth;
+      const steps = history.length; // Number of questions answered
+      const isResult = decisionTree[currentState].result !== undefined;
+
+      // Calculate progress percentage: if at a result, show 100%; otherwise, base on steps
+      const progressPercent = isResult ? 100 : (steps / maxSteps) * 100;
+      const dotPosition = (progressPercent / 100) * (progressBarWidth - 8); // Subtract dot width for accuracy
+
+      progressDot.style.left = `${dotPosition}px`;
+    }
+
+    function toggleBackButton() {
+      const backButton = document.getElementById("back-btn");
+      backButton.style.display = history.length > 0 ? "block" : "none";
+    }
+
+    // Initial setup
+    updateProgress();
+    toggleBackButton();
   </script>
 </body>
 </html>
