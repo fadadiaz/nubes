@@ -28,6 +28,7 @@
       max-width: 400px;
       text-align: center;
       margin: 20px;
+      position: relative;
     }
 
     .card h2 {
@@ -56,6 +57,7 @@
       border-radius: 5px;
       cursor: pointer;
       font-family: 'Alegreya Sans', sans-serif;
+      position: relative;
     }
 
     .restart {
@@ -63,6 +65,43 @@
       color: #000;
       border: none;
       margin-top: 10px;
+    }
+
+    /* Line styles for each direction */
+    .derecha::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      width: calc(100vw - 100%); /* Extend to the right edge of the viewport */
+      height: 2px; /* Line thickness */
+      background-color: #000;
+      pointer-events: none;
+    }
+
+    .abajo::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px; /* Line thickness */
+      height: calc(100vh - 100px); /* Extend to the bottom of the viewport */
+      background-color: #000;
+      pointer-events: none;
+    }
+
+    .izquierda::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: calc(100vw - 100%); /* Extend to the left edge of the viewport */
+      height: 2px; /* Line thickness */
+      background-color: #000;
+      pointer-events: none;
     }
 
     @media (max-width: 600px) {
@@ -90,8 +129,8 @@
     <h2>Identificador de Nubes</h2>
     <p id="question">¿Se ven rayos o se oyen truenos?</p>
     <div class="button-container" id="buttons">
-      <button class="button" onclick="answer('yes')">Sí</button>
-      <button class="button" onclick="answer('no')">No</button>
+      <button class="button derecha" onclick="answer('yes')">Sí</button>
+      <button class="button abajo" onclick="answer('no')">No</button>
     </div>
   </div>
 
@@ -226,8 +265,8 @@
       card.querySelector("h2").textContent = "Identificador de Nubes";
       question.textContent = decisionTree[currentState].question;
       buttons.innerHTML = `
-        <button class="button" onclick="answer('yes')">Sí</button>
-        <button class="button" onclick="answer('no')">No</button>
+        <button class="button derecha" onclick="answer('yes')">Sí</button>
+        <button class="button abajo" onclick="answer('no')">No</button>
       `;
     }
 
