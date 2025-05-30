@@ -6,6 +6,7 @@
   <title>Guía de Identificación de Nubes</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400&display=swap">
   <link rel="stylesheet" href="https://use.typekit.net/oer0pgk.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=west" />
   <style>
     * {
       box-sizing: border-box;
@@ -24,42 +25,95 @@
     .card {
       text-align: center;
       display: flex;
-      flex-direction: column;
       max-width: 330px;
+      gap: 20px;
+      height: 90vh;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+      transition: filter 0.5s ease, -webkit-filter 0.5s ease;
+    }
+
+    .card.blur {
+      -webkit-filter: blur(4px);
+      filter: blur(4px);
     }
   
-    .card h2 {
-      font-family: "ff-more-web-pro-condensed", serif;
-      font-size: 39.06px;
-      margin-bottom: 20px;
-    }
-  
-    .card p {
+    .title {
       font-size: 18px;
-      margin-bottom: 30px;
+      margin: 0;
+      font-weight: 100;
+      flex: 1;
+    }
+  
+    .welcome-text {
+      margin: 0;
+      font-family: "ff-more-web-pro-condensed", serif;
+      font-size: 49.06px;
+      flex: 2;
+      overflow-wrap: anywhere;
+    }
+
+    .question {
+      margin: 0;
+      font-family: "ff-more-web-pro-condensed", serif;
+      font-size: 49.06px;
+      flex: 2;
+      overflow-wrap: anywhere;
+    }
+
+    .cloud-name {
+      margin: 0;
+      font-family: "ff-more-web-pro-condensed", serif;
+      font-size: 49.06px;
+      flex: 2;
+      overflow-wrap: anywhere;
+    }
+
+    .description {
+      font-size: 18px;
+      margin: 0;
+      font-weight: 100;
+      flex: 1;
     }
   
     .button-container {
       display: flex;
       flex-direction: column;
       gap: 10px;
+      max-width: 100vw;
+      align-items: center;
+      flex-grow: 1;
     }
   
     .button {
       background-color: #fff;
       color: #000;
-      border: none;
       padding: 10px;
-      font-size: 16px;
+      font-size: 20px; /* Cambiado a 20px */
       cursor: pointer;
       font-family: 'Alegreya Sans', sans-serif;
+      text-transform: uppercase;
+      font-weight: bold;
+      border: 1px solid #000;
+      width: 50vw;
+      letter-spacing: 0.6pt;
+      position: relative;
     }
   
     .restart {
       background-color: #fff;
       color: #000;
-      border: none;
-      margin-top: 10px;
+      border: 1px solid #000;
+      padding: 10px;
+      font-size: 20px; /* Cambiado a 20px */
+      cursor: pointer;
+      font-family: 'Alegreya Sans', sans-serif;
+      text-transform: uppercase;
+      font-weight: bold;
+      width: 50vw;
+      letter-spacing: 0.6pt;
+      position: relative;
     }
 
     .back-button {
@@ -69,13 +123,16 @@
       font-size: 14px;
       cursor: pointer;
       font-family: 'Alegreya Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
 
     .progress-container {
       position: fixed;
       top: 20px;
       width: 90vw;
-      height: 10px;
+      height: 20px; /* Cambiado a 20px */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -89,64 +146,46 @@
     }
 
     .progress-dot {
-      width: 5px;
-      height: 5px;
+      width: 15px; /* Cambiado a 15px */
+      height: 15px; /* Cambiado a 15px */
       background-color: #000;
       border-radius: 50%;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       left: 0;
-      transition: left 0.3s ease;
+      transition: left 0.5s ease;
     }
 
-    /* 
-    .derecha::after {
-    content: '';
-    width: 50%;
-    height: 1px;
-    margin: 8px 0 0 20px;
-    }
-  
-    .abajo::after {
-    width: 1px;
-    height: 50%;
-    margin: 43px 0 0 -9px;
-    }
-  
-    .izquierda::before {
-    width: 50%;
-    height: 1px;
-    left: 0;
-    margin: 9px 0 0 -30px;
-    } */
     .button::after, .button::before {
-    content: '';
-    position: absolute;
-    background-color: #000;
-    pointer-events: none;
+      content: '';
+      position: absolute;
+      background-color: #000;
+      pointer-events: none;
     }
-    #q1-yes::after {
-    width: 50%;
-    height: 1px;
-    margin: 8px 0 0 20px;
+
+    .derecha::after {
+      width: 50vw;
+      height: 1px;
+      top: 50%;
+      left: 100%;
+      transform: translateY(-50%);
     }
-    #q1-no::after {
-    width: 1px;
-    height: 50%;
-    margin: 43px 0 0 -9px;
+
+    .abajo::after {
+      width: 1px;
+      height: 50vh;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
     }
-    #q2-yes::before {
-    width: 50%;
-    height: 1px;
-    left: 0;
-    margin: 9px 0 0 -30px;
-    }
-    #q2-no::after {
-    content: '';
-    width: 50%;
-    height: 1px;
-    margin: 8px 0 0 20px;
+
+    .izquierda::before {
+      width: 50vw;
+      height: 1px;
+      top: 50%;
+      right: 100%;
+      transform: translateY(-50%);
     }
   </style>
 </head>
@@ -157,17 +196,22 @@
     </div>
   </div>
   <div class="card" id="card">
-    <button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">Volver</button>
-    <h2>Identificador de Nubes</h2>
-    <p id="question">¿Se ven rayos o se oyen truenos?</p>
+    <h1 class="title">Identificador de Nubes</h1>
+    <p class="welcome-text">Identificador de Nubes</p>
     <div class="button-container" id="buttons">
-      <button id="q1-yes" class="button derecha si" onclick="answer('yes')">Sí</button>
-      <button id="q1-no" class="button abajo no" onclick="answer('no')">No</button>
+      <button class="button" onclick="startQuiz()">¡Vamos!</button>
     </div>
   </div>
 
   <script>
+    let currentState = "welcome";
+    let history = [];
+    const maxSteps = 5;
+
     const decisionTree = {
+      welcome: {
+        action: "start"
+      },
       q1: {
         question: "¿Se ven rayos o se oyen truenos?",
         yes: {
@@ -275,97 +319,136 @@
       }
     };
 
-    let currentState = "q1";
-    let history = []; // Track the history of states and answers
-    const maxSteps = 5; // Longest path in the decision tree
+    function startQuiz() {
+      const card = document.getElementById("card");
+      card.classList.add("blur");
+
+      setTimeout(() => {
+        card.innerHTML = '';
+        setTimeout(() => {
+          currentState = "q1";
+          displayQuestion();
+          updateProgress();
+          toggleBackButton();
+          card.classList.remove("blur");
+        }, 100);
+      }, 500);
+    }
 
     function answer(response) {
-      // Save current state and response to history before moving forward
-      history.push({ state: currentState, response: response });
+      const card = document.getElementById("card");
+      card.classList.add("blur");
 
-      const currentNode = decisionTree[currentState];
-      const next = currentNode[response];
+      setTimeout(() => {
+        card.innerHTML = '';
+        setTimeout(() => {
+          history.push({ state: currentState, response: response });
+          const currentNode = decisionTree[currentState];
+          const next = currentNode[response];
 
-      if (typeof next === "string") {
-        currentState = next;
-        displayQuestion();
-      } else if (next && next.result) {
-        displayResult(next.result);
-      }
-      updateProgress();
-      toggleBackButton();
+          if (typeof next === "string") {
+            currentState = next;
+            displayQuestion();
+          } else if (next && next.result) {
+            displayResult(next.result);
+          }
+          updateProgress();
+          toggleBackButton();
+          card.classList.remove("blur");
+        }, 100);
+      }, 500);
     }
 
     function goBack() {
       if (history.length > 0) {
-        // Remove the last entry from history
-        history.pop();
-        // Get the previous state from the last history entry, or reset to q1
-        const previous = history.length > 0 ? history[history.length - 1] : null;
-        if (previous) {
-          currentState = previous.state;
-          displayQuestion();
-        } else {
-          currentState = "q1";
-          displayQuestion();
-        }
-        updateProgress();
-        toggleBackButton();
+        const card = document.getElementById("card");
+        card.classList.add("blur");
+
+        setTimeout(() => {
+          card.innerHTML = '';
+          setTimeout(() => {
+            history.pop();
+            const previous = history.length > 0 ? history[history.length - 1] : null;
+            if (previous) {
+              currentState = previous.state;
+              displayQuestion();
+            } else {
+              currentState = "q1";
+              displayQuestion();
+            }
+            updateProgress();
+            toggleBackButton();
+            card.classList.remove("blur");
+          }, 100);
+        }, 500);
       }
     }
 
     function displayQuestion() {
       const card = document.getElementById("card");
-      const question = document.getElementById("question");
-      const buttons = document.getElementById("buttons");
-
-      card.querySelector("h2").textContent = "Identificador de Nubes";
-      question.textContent = decisionTree[currentState].question;
-      buttons.innerHTML = `
-        <button id="${currentState}-yes" class="button derecha si" onclick="answer('yes')">Sí</button>
-        <button id="${currentState}-no" class="button abajo no" onclick="answer('no')">No</button>
+      card.innerHTML = `
+        <button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">
+          <span class="material-symbols-outlined">west</span>
+        </button>
+        <h1 class="title">Identificador de Nubes</h1>
+        <p class="question" id="question">${decisionTree[currentState].question}</p>
+        <div class="button-container" id="buttons">
+          <button id="${currentState}-yes" class="button derecha si" onclick="answer('yes')">Sí</button>
+          <button id="${currentState}-no" class="button abajo no" onclick="answer('no')">No</button>
+        </div>
       `;
     }
 
     function displayResult(result) {
       const card = document.getElementById("card");
-      const question = document.getElementById("question");
-      const buttons = document.getElementById("buttons");
-
-      card.querySelector("h2").textContent = result.name;
-      question.textContent = result.description;
-      buttons.innerHTML = `
-        <button id="restart-btn" class="button restart" onclick="restart()">Volver a empezar</button>
+      card.innerHTML = `
+        <button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">
+          <span class="material-symbols-outlined">west</span>
+        </button>
+        <h1 class="title">Identificador de Nubes</h1>
+        <h2 class="cloud-name">${result.name}</h2>
+        <div class="description">${result.description}</div>
+        <div class="button-container" id="buttons">
+          <button id="restart-btn" class="button restart" onclick="restart()">Volver a empezar</button>
+        </div>
       `;
     }
 
     function restart() {
-      currentState = "q1";
-      history = []; // Clear history on restart
-      displayQuestion();
-      updateProgress();
-      toggleBackButton();
+      const card = document.getElementById("card");
+      card.classList.add("blur");
+
+      setTimeout(() => {
+        card.innerHTML = '';
+        setTimeout(() => {
+          currentState = "q1";
+          history = [];
+          displayQuestion();
+          updateProgress();
+          toggleBackButton();
+          card.classList.remove("blur");
+        }, 100);
+      }, 500);
     }
 
     function updateProgress() {
       const progressDot = document.getElementById("progress-dot");
       const progressBarWidth = document.querySelector(".progress-bar").offsetWidth;
-      const steps = history.length; // Number of questions answered
+      const steps = history.length;
       const isResult = decisionTree[currentState].result !== undefined;
 
-      // Calculate progress percentage: if at a result, show 100%; otherwise, base on steps
       const progressPercent = isResult ? 100 : (steps / maxSteps) * 100;
-      const dotPosition = (progressPercent / 100) * (progressBarWidth - 8); // Subtract dot width for accuracy
+      const dotPosition = (progressPercent / 100) * (progressBarWidth - 7.5); // Ajustado por el nuevo tamaño del dot
 
       progressDot.style.left = `${dotPosition}px`;
     }
 
     function toggleBackButton() {
       const backButton = document.getElementById("back-btn");
-      backButton.style.display = history.length > 0 ? "block" : "none";
+      const isResult = decisionTree[currentState].result !== undefined;
+      backButton.style.display = (history.length > 0 && !isResult) ? "block" : "none";
     }
 
-    // Initial setup
     updateProgress();
     toggleBackButton();
   </script>
