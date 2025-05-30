@@ -25,7 +25,7 @@
     .card {
       text-align: center;
       display: flex;
-      max-width: 330px;
+      min-width: 330px; /* Cambiado de max-width a min-width */
       gap: 20px;
       height: 90vh;
       flex-direction: column;
@@ -52,6 +52,8 @@
       font-size: 49.06px;
       flex: 2;
       overflow-wrap: anywhere;
+      display: flex;
+      align-items: center;
     }
 
     .question {
@@ -60,14 +62,19 @@
       font-size: 49.06px;
       flex: 2;
       overflow-wrap: anywhere;
+      display: flex;
+      align-items: center;
     }
 
     .cloud-name {
       margin: 0;
       font-family: "ff-more-web-pro-condensed", serif;
+      font-weight: 100;
       font-size: 49.06px;
       flex: 2;
       overflow-wrap: anywhere;
+      display: flex;
+      align-items: center;
     }
 
     .description {
@@ -90,7 +97,7 @@
       background-color: #fff;
       color: #000;
       padding: 10px;
-      font-size: 20px; /* Cambiado a 20px */
+      font-size: 20px;
       cursor: pointer;
       font-family: 'Alegreya Sans', sans-serif;
       text-transform: uppercase;
@@ -106,7 +113,7 @@
       color: #000;
       border: 1px solid #000;
       padding: 10px;
-      font-size: 20px; /* Cambiado a 20px */
+      font-size: 20px;
       cursor: pointer;
       font-family: 'Alegreya Sans', sans-serif;
       text-transform: uppercase;
@@ -128,11 +135,15 @@
       gap: 5px;
     }
 
+    .material-symbols-outlined {
+      font-weight: 200; /* Cambiado a 200 */
+    }
+
     .progress-container {
       position: fixed;
       top: 20px;
       width: 90vw;
-      height: 20px; /* Cambiado a 20px */
+      height: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -146,8 +157,8 @@
     }
 
     .progress-dot {
-      width: 15px; /* Cambiado a 15px */
-      height: 15px; /* Cambiado a 15px */
+      width: 15px;
+      height: 15px;
       background-color: #000;
       border-radius: 50%;
       position: absolute;
@@ -196,7 +207,6 @@
     </div>
   </div>
   <div class="card" id="card">
-    <h1 class="title">Identificador de Nubes</h1>
     <p class="welcome-text">Identificador de Nubes</p>
     <div class="button-container" id="buttons">
       <button class="button" onclick="startQuiz()">¡Vamos!</button>
@@ -390,7 +400,6 @@
         <button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">
           <span class="material-symbols-outlined">west</span>
         </button>
-        <h1 class="title">Identificador de Nubes</h1>
         <p class="question" id="question">${decisionTree[currentState].question}</p>
         <div class="button-container" id="buttons">
           <button id="${currentState}-yes" class="button derecha si" onclick="answer('yes')">Sí</button>
@@ -405,7 +414,6 @@
         <button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">
           <span class="material-symbols-outlined">west</span>
         </button>
-        <h1 class="title">Identificador de Nubes</h1>
         <h2 class="cloud-name">${result.name}</h2>
         <div class="description">${result.description}</div>
         <div class="button-container" id="buttons">
@@ -438,7 +446,7 @@
       const isResult = decisionTree[currentState].result !== undefined;
 
       const progressPercent = isResult ? 100 : (steps / maxSteps) * 100;
-      const dotPosition = (progressPercent / 100) * (progressBarWidth - 7.5); // Ajustado por el nuevo tamaño del dot
+      const dotPosition = (progressPercent / 100) * (progressBarWidth - 7.5);
 
       progressDot.style.left = `${dotPosition}px`;
     }
