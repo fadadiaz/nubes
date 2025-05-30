@@ -8,8 +8,6 @@
   <link rel="stylesheet" href="https://use.typekit.net/oer0pgk.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=west" />
   <style>
-    @charset "utf-8";
-
     * {
       box-sizing: border-box;
     }
@@ -105,7 +103,7 @@
       position: relative;
     }
 
-    .vamos {
+    .vamos, .si, .no, .restart {
       background-color: #fff;
       color: #000;
       padding: 10px;
@@ -243,17 +241,6 @@
 
     /* Estilos para Desktop (≥768px) */
     @media (min-width: 768px) {
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background-color: rgb(255, 255, 255);
-        font-family: "Alegreya Sans", sans-serif;
-        color: rgb(0, 0, 0);
-        overflow: hidden;
-      }
-
       .card {
         text-align: center;
         display: flex;
@@ -319,74 +306,59 @@
         width: 280px;
       }
 
-      .button {
-        background-color: rgb(255, 255, 255);
-        color: rgb(0, 0, 0);
+      .vamos, .si, .no, .restart {
+        background-color: #fff;
+        color: #000;
         padding: 10px;
         font-size: 20px;
         cursor: pointer;
-        font-family: "Alegreya Sans", sans-serif;
+        font-family: 'Alegreya Sans', sans-serif;
         text-transform: uppercase;
         font-weight: bold;
-        border: 1px solid rgb(0, 0, 0);
-        letter-spacing: 0.6pt;
-        position: relative;
-        width: 100%;
-      }
-
-      .vamos {
-        background-color: rgb(255, 255, 255);
-        color: rgb(0, 0, 0);
-        padding: 10px;
-        font-size: 20px;
-        cursor: pointer;
-        font-family: "Alegreya Sans", sans-serif;
-        text-transform: uppercase;
-        font-weight: bold;
-        border: 1px solid rgb(0, 0, 0);
+        border: 1px solid #000;
         letter-spacing: 0.6pt;
         position: relative;
         width: 100%;
       }
 
       .si {
-        background-color: rgb(255, 255, 255);
-        color: rgb(0, 0, 0);
+        background-color: #fff;
+        color: #000;
         padding: 10px;
         font-size: 20px;
         cursor: pointer;
-        font-family: "Alegreya Sans", sans-serif;
+        font-family: 'Alegreya Sans', sans-serif;
         text-transform: uppercase;
         font-weight: bold;
-        border: 1px solid rgb(0, 0, 0);
+        border: 1px solid #000;
         letter-spacing: 0.6pt;
         position: relative;
         width: 100%;
       }
 
       .no {
-        background-color: rgb(255, 255, 255);
-        color: rgb(0, 0, 0);
+        background-color: #fff;
+        color: #000;
         padding: 10px;
         font-size: 20px;
         cursor: pointer;
-        font-family: "Alegreya Sans", sans-serif;
+        font-family: 'Alegreya Sans', sans-serif;
         text-transform: uppercase;
         font-weight: bold;
-        border: 1px solid rgb(0, 0, 0);
+        border: 1px solid #000;
         letter-spacing: 0.6pt;
         position: relative;
         width: 100%;
       }
 
       .restart {
-        background-color: rgb(255, 255, 255);
-        color: rgb(0, 0, 0);
-        border: 1px solid rgb(0, 0, 0);
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #000;
         padding: 10px;
         font-size: 20px;
         cursor: pointer;
-        font-family: "Alegreya Sans", sans-serif;
+        font-family: 'Alegreya Sans', sans-serif;
         text-transform: uppercase;
         font-weight: bold;
         width: 100%;
