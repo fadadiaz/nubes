@@ -18,23 +18,43 @@
       padding: 20px;
       background-color: #fff;
       color: #000;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
     }
-    .reference {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
+
+    section {
+      max-width: 850px;
+      width: 100%;
+      position: relative;
+    }
+
+    section:before {
+      content: "";
+      position: absolute;
+      left: -20px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: #000;
+    }
 
     h1 {
       text-align: center;
-      margin-bottom: 30px;
+      margin-top: 30px;
       font-family: "ff-more-web-pro-condensed", serif;
       font-weight: 100;
       font-size: 60px;
+    }
+
+    .reference {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
     }
 
     .cloud-item {
@@ -42,16 +62,31 @@
       padding: 10px;
       display: flex;
       flex-direction: column;
+      gap: 8px;
+      position: relative;
     }
 
-    .cloud-title {
+    h2 {
       font-size: 30px;
-      margin-bottom: 18px;
+      margin-bottom: 5px;
       font-family: "ff-more-web-pro-condensed", serif;
       font-weight: 100;
+      position: relative;
     }
 
-    .cloud-details {
+    h2:after {
+      content: attr(data-height);
+      position: absolute;
+      left: -40px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      font-size: 12px;
+      font-family: 'Alegreya Sans', sans-serif;
+      white-space: nowrap;
+    }
+
+    p {
+      font-size: 16px;
       margin-bottom: 5px;
     }
 
@@ -61,80 +96,93 @@
       flex-wrap: wrap;
       gap: 4px;
       background-color: #fff;
-      margin-top: 5px;
     }
 
     .dot {
-      width: 4px;
-      height: 4px;
+      width: 5px;
+      height: 5px;
       background-color: #000;
-      border-radius: 100%;
+      border-radius: 50%;
+    }
+
+    @media (max-width: 768px) {
+      h2 {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
-<body>
-  <h1>Cantidad de agua por género de nube</h1>
-  <div class="reference"><div class="dot"></div><p>=</p> <p>10 litros de agua</p></div>
-  <div class="cloud-item">
-    <div class="cloud-title">Cirrus</div>
-    <div class="cloud-details">Litros de Agua Totales: 5,000,000</div>
-    <div class="cloud-details">Dimensiones Promedio: 5 km x 5 km x 0.2 km</div>
-    <div class="dots-container" data-liters="5000000" id="cirrus-dots"></div>
-  </div>
-  <div class="cloud-item">
-    <div class="cloud-title">Cirrocumulus</div>
-    <div class="cloud-details">Litros de Agua Totales: 400,000</div>
-    <div class="cloud-details">Dimensiones Promedio: 2 km x 2 km x 0.1 km</div>
-    <div class="dots-container" data-liters="400000" id="cirrocumulus-dots"></div>
-  </div>
-  <div class="cloud-item">
-    <div class="cloud-title">Cirrostratus</div>
-    <div class="cloud-details">Litros de Agua Totales: 30,000,000</div>
-    <div class="cloud-details">Dimensiones Promedio: 10 km x 10 km x 0.3 km</div>
-    <div class="dots-container" data-liters="30000000" id="cirrostratus-dots"></div>
-  </div>
-  <div class="cloud-item">
-    <div class="cloud-title">Altocumulus</div>
-    <div class="cloud-details">Litros de Agua Totales: 4,500,000</div>
-    <div class="cloud-details">Dimensiones Promedio: 3 km x 3 km x 0.5 km</div>
-    <div class="dots-container" data-liters="4500000" id="altocumulus-dots"></div>
-  </div>
-  <div class="cloud-item">
-    <div class="cloud-title">Altostratus</div>
-    <div class="cloud-details">Litros de Agua Totales: 50,000,000</div>
-    <div class="cloud-details">Dimensiones Promedio: 5 km x 5 km x 1 km</div>
-    <div class="dots-container" data-liters="50000000" id="altostratus-dots"></div>
-  </div>
-  <div class="cloud-item">
-    <div class="cloud-title">Stratocumulus</div>
-    <div class="cloud-details">Litros de Agua Totales: 64,000,000</div>
-    <div class="cloud-details">Dimensiones Promedio: 4 km x 4 km x 0.8 km</div>
-    <div class="dots-container" data-liters="64000000" id="stratocumulus-dots"></div>
-  </div>
-  <div class="cloud-item">
-    <div class="cloud-title">Stratus</div>
-    <div class="cloud-details">Litros de Agua Totales: 43,200,000</div>
-    <div class="cloud-details">Dimensiones Promedio: 6 km x 6 km x 0.4 km</div>
-    <div class="dots-container" data-liters="43200000" id="stratus-dots"></div>
-  </div>
-  <div class="cloud-item">
-    <div class="cloud-title">Cumulus</div>
-    <div class="cloud-details">Litros de Agua Totales: 5,000,000</div>
-    <div class="cloud-details">Dimensiones Promedio: 1 km x 1 km x 1 km</div>
-    <div class="dots-container" data-liters="5000000" id="cumulus-dots"></div>
-  </div>
-  <div class="cloud-item">
-    <div class="cloud-title">Cumulonimbus</div>
-    <div class="cloud-details">Litros de Agua Totales: 900,000,000</div>
-    <div class="cloud-details">Dimensiones Promedio: 5 km x 5 km x 12 km</div>
-    <div class="dots-container" data-liters="900000000" id="cumulonimbus-dots"></div>
-  </div>
-  <div class="cloud-item">
-    <div class="cloud-title">Nimbostratus</div>
-    <div class="cloud-details">Litros de Agua Totales: 216,000,000</div>
-    <div class="cloud-details">Dimensiones Promedio: 6 km x 6 km x 3 km</div>
-    <div class="dots-container" data-liters="216000000" id="nimbostratus-dots"></div>
-  </div>
+<body onload="window.scrollTo(0, document.body.scrollHeight)">
+  <section>
+    <!-- Nubes Altas -->
+    <div class="cloud-item">
+      <p>Agua total: 400.000 litros</p>
+      <p>Dimensión promedio: 2 km x 2 km x 0.1 km</p>
+      <div class="dots-container" data-liters="400000" id="cirrocumulus-dots"></div>
+      <h2 data-height="6-13 km">Cirrocumulus</h2>
+    </div>
+    <div class="cloud-item">
+      <p>Agua total: 30.000.000 litros</p>
+      <p>Dimensión promedio: 10 km x 10 km x 0.3 km</p>
+      <div class="dots-container" data-liters="30000000" id="cirrostratus-dots"></div>
+      <h2 data-height="5-15 km">Cirrostratus</h2>
+    </div>
+    <div class="cloud-item">
+      <p>Agua total: 5.000.000 litros</p>
+      <p>Dimensión promedio: 5 km x 5 km x 0.2 km</p>
+      <div class="dots-container" data-liters="5000000" id="cirrus-dots"></div>
+      <h2 data-height="5-15 km">Cirrus</h2>
+    </div>
+
+    <!-- Nubes Medias -->
+    <div class="cloud-item">
+      <p>Agua total: 216.000.000 litros</p>
+      <p>Dimensión promedio: 6 km x 6 km x 3 km</p>
+      <div class="dots-container" data-liters="216000000" id="nimbostratus-dots"></div>
+      <h2 data-height="0.5-5.5 km">Nimbostratus</h2>
+    </div>
+    <div class="cloud-item">
+      <p>Agua total: 50.000.000 litros</p>
+      <p>Dimensión promedio: 5 km x 5 km x 1 km</p>
+      <div class="dots-container" data-liters="50000000" id="altostratus-dots"></div>
+      <h2 data-height="2-7 km">Altostratus</h2>
+    </div>
+    <div class="cloud-item">
+      <p>Agua total: 4.500.000 litros</p>
+      <p>Dimensión promedio: 3 km x 3 km x 0.5 km</p>
+      <div class="dots-container" data-liters="4500000" id="altocumulus-dots"></div>
+      <h2 data-height="2-7 km">Altocumulus</h2>
+    </div>
+
+    <!-- Nubes Bajas -->
+    <div class="cloud-item">
+      <p>Agua total: 43.200.000 litros</p>
+      <p>Dimensión promedio: 6 km x 6 km x 0.4 km</p>
+      <div class="dots-container" data-liters="43200000" id="stratus-dots"></div>
+      <h2 data-height="0-2 km">Stratus</h2>
+    </div>
+    <div class="cloud-item">
+      <p>Agua total: 64.000.000 litros</p>
+      <p>Dimensión promedio: 4 km x 4 km x 0.8 km</p>
+      <div class="dots-container" data-liters="64000000" id="stratocumulus-dots"></div>
+      <h2 data-height="0.5-2 km">Stratocumulus</h2>
+    </div>
+    <div class="cloud-item">
+      <p>Agua total: 5.000.000 litros</p>
+      <p>Dimensión promedio: 1 km x 1 km x 1 km</p>
+      <div class="dots-container" data-liters="5000000" id="cumulus-dots"></div>
+      <h2 data-height="0.5-2 km">Cumulus</h2>
+    </div>
+    <div class="cloud-item">
+      <p>Agua total: 900.000.000 litros</p>
+      <p>Dimensión promedio: 5 km x 5 km x 12 km</p>
+      <div class="dots-container" data-liters="900000000" id="cumulonimbus-dots"></div>
+      <h2 data-height="0.5-16 km">Cumulonimbus</h2>
+    </div>
+
+    <div class="reference"><div class="dot"></div><p>=</p><p>10 litros de agua</p></div>
+    <h1>Agua por Género de Nube</h1>
+  </section>
 
   <script>
     const containers = document.querySelectorAll('.dots-container');
