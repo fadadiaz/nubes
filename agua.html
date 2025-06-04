@@ -62,16 +62,52 @@
       font-size: 60px;
     }
 
-    .reference {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 16px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      height: 100vh;
-    }
+.reference {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 16px;
+    display: flex;
+    gap: 10px;
+    padding: 20px 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+    .refe {
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+}
+    .dot-litros {
+    width: 5px;
+    height: 5px;
+    background-color: #000;
+    border-radius: 50%;
+    position: relative;
+    min-width: 5px;
+}
+    .dot-agua {
+    width: 5px;
+    height: 5px;
+    border-radius: 2px;
+    border: 1px solid #000;
+    min-width: 5px;
+}
+    .dot-dimension {
+    width: 15px;
+    height: 5px;
+    border-radius: 15px;
+    border: 1px solid #000;
+    min-width: 15px;
+}
+    .linea {
+    width: 100%;
+    height: 1px;
+    background: #000;
+}
+    
 .contenedor-altitud {
     width: 100%;
     height: 60px;
@@ -191,10 +227,11 @@ h2:before {
     <div class="intro portada">
       <p>Una nube se forma por partículas de agua líquida o hielo, junto con sólidos como humo y polvo, suspendidas en la atmósfera. Dependiendo de su género y dimensiones, contiene cantidades de agua que varían entre miles y millones de litros.</p>
     </div>
-    <div class="reference">
-      <div class="refe-agua litros"><div class="linea"></div><p>10 litros de agua</p></div>
-      <div class="refe-total agua"><div class="linea"></div><p>Agua total</p></div>
-      <div class="refe-dimension dimension"><div class="linea"></div><p>Dimensión promedio</p></div></div>
+<div class="reference">
+      <div class="refe litros"><div class="dot-litros"></div><div class="linea"></div><p>10 litros de agua</p></div>
+      <div class="refe agua"><div class="dot-agua"></div><div class="linea"></div><p>Agua total</p></div>
+      <div class="refe dimension"><div class="dot-dimension"></div><div class="linea"></div><p>Dimensión promedio</p></div>
+    </div>
     <div class="contenedor-altitud"><p class="altitud">altitud</p></div>
 <section class="contenido-nubes">
     <!-- Nubes Altas -->
