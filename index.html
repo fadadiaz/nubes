@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Guía de Identificación de Nubes</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=west" />
   <link rel="stylesheet" href="https://use.typekit.net/oer0pgk.css">
   <link rel="icon" type="image/x-icon" href="img/dot.ico">
   <style>
@@ -38,6 +37,10 @@
       max-width: 80vw;
       flex-direction: column;
       align-content: center;
+    }
+
+    #card.welcome {
+      max-height: 290px;
     }
 
     .card.blur {
@@ -192,32 +195,31 @@
     .glossary-popup {
       position: fixed;
       top: 0;
-      right: -33%;
+      left: -33%;
       width: 33%;
       height: 100%;
       background: #fff;
-      border-left: 1px solid #000;
+      border-right: 1px solid #000;
       padding: 20px;
       overflow-y: auto;
-      transition: right 0.3s ease;
+      transition: left 0.3s ease;
       z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 45px;
     }
 
     .glossary-popup.open {
-      right: 0;
+      left: 0;
     }
 
     .glossary-popup h3 {
       margin-top: 0;
-    }
-
-    .glossary-popup ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .glossary-popup li {
-      margin-bottom: 10px;
+      font-family: "ff-more-web-pro-condensed", serif;
+      font-size: 90px;
+      text-align: center;
+      font-weight: 100;
     }
 
     .glossary-popup .close-btn {
@@ -226,8 +228,31 @@
       right: 10px;
       background: none;
       border: none;
-      font-size: 20px;
+      font-size: 40px;
       cursor: pointer;
+    }
+
+    .glossary-popup ul {
+      list-style: none;
+      padding: 0;
+      width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .glossary-popup.open ul li {
+      display: flex;
+      flex-direction: column;
+      font-size: 18px;
+      gap: 5px;
+    }
+
+    .glossary-popup.open strong {
+      font-family: "ff-more-web-pro-condensed", serif;
+      font-size: 60px;
+      text-align: left;
+      font-weight: 100;
     }
 
     @media (max-width: 767px) {
@@ -274,11 +299,11 @@
 
       .glossary-popup {
         width: 66%;
-        right: -66%;
+        left: -66%;
       }
 
       .glossary-popup.open {
-        right: 0;
+        left: 0;
       }
     }
   </style>
@@ -289,7 +314,7 @@
       <div class="progress-dot" id="progress-dot"></div>
     </div>
   </div>
-  <div class="card" id="card">
+  <div class="card welcome" id="card">
     <p class="welcome-text">Identificador de Nubes</p>
     <div class="button-container" id="buttons">
       <button class="button vamos" onclick="startQuiz()">¡Vamos!</button>
@@ -300,6 +325,32 @@
     let currentState = "welcome";
     let history = [];
     const maxSteps = 5;
+
+    const popup = document.createElement('div');
+    popup.className = 'glossary-popup';
+    popup.innerHTML = `
+      <button class="close-btn" onclick="closeGlossaryPopup()"><img src="img/close.svg" alt="Close"></button>
+      <h3>Glosario</h3>
+      <ul>
+        <li id="glossary-1"><strong>Relámpagos¹</strong>: Descargas eléctricas visibles en el cielo durante tormentas.</li>
+        <li id="glossary-2"><strong>Truenos²</strong>: Sonido fuerte causado por la expansión del aire caliente tras un relámpago.</li>
+        <li id="glossary-3"><strong>Bultos³</strong>: Elevaciones visibles en una nube, como protuberancias redondeadas; míralas desde el suelo como "montañitas" en el cielo.</li>
+        <li id="glossary-4"><strong>Nítido⁴</strong>: Borde claro y definido, sin difuminarse con el fondo.</li>
+        <li id="glossary-5"><strong>Capa⁵</strong>: Una extensión continua de nubes que cubre una gran área del cielo, generalmente sin interrupciones significativas.</li>
+        <li id="glossary-6"><strong>Difuso⁶</strong>: Borde borroso o poco claro, que parece desvanecerse.</li>
+        <li id="glossary-7"><strong>Velo⁷</strong>: Capa delgada y transparente de nubes que deja ver el Sol o la Luna.</li>
+        <li id="glossary-8"><strong>Halo⁸</strong>: Círculo de luz alrededor del Sol o la Luna, causado por cristales de hielo.</li>
+        <li id="glossary-9"><strong>Grisáceo⁹</strong>: Color entre gris y blanco, típico de nubes con humedad.</li>
+        <li id="glossary-10"><strong>Llovizna¹⁰</strong>: Lluvia muy fina y ligera con gotas pequeñas.</li>
+        <li id="glossary-11"><strong>Niebla¹¹</strong>: Capa densa de pequeñas gotas de agua cerca del suelo.</li>
+        <li id="glossary-12"><strong>Filamentos¹²</strong>: Hilos delgados y elongados formados por cristales de hielo en nubes altas.</li>
+        <li id="glossary-13"><strong>Elementos¹³</strong>: Partes individuales visibles de una nube, como gotas o cristales de hielo.</li>
+        <li id="glossary-14"><strong>Gránulos¹⁴</strong>: Pequeños puntos o bolitas visibles en una nube.</li>
+        <li id="glossary-15"><strong>Ondulaciones¹⁵</strong>: Patrones ondulados o en forma de olas en las nubes.</li>
+        <li id="glossary-16"><strong>Rodillos¹⁶</strong>: Formas cilíndricas o tubulares en las nubes.</li>
+      </ul>
+    `;
+    document.body.appendChild(popup);
 
     const decisionTree = {
       welcome: { action: "start" },
@@ -361,6 +412,7 @@
       setTimeout(() => {
         card.innerHTML = '';
         setTimeout(() => {
+          card.classList.remove("welcome");
           currentState = "q1";
           displayQuestion();
           updateProgress();
@@ -410,6 +462,7 @@
             }
           } else {
             currentState = "welcome";
+            card.classList.add("welcome");
             card.innerHTML = `
               <p class="welcome-text">Identificador de Nubes</p>
               <div class="button-container" id="buttons">
@@ -428,7 +481,7 @@
       const card = document.getElementById("card");
       card.innerHTML = `
         <div class="contenedor-volver"><button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">
-          <span class="material-symbols-outlined">west</span>
+          <img src="img/west.svg" alt="Back">
         </button> </div>
         <div class="contenedor-principal"> <div class="pregunta"><p class="question" id="question">${decisionTree[currentState].question}</p></div>
         <div class="button-container" id="buttons">
@@ -437,67 +490,23 @@
         </div>
         </div>
       `;
-      // Añadir evento de clic a los términos del glosario
-      document.querySelectorAll('.glossary-term').forEach(term => {
-        term.addEventListener('click', () => {
-          const glossaryId = term.getAttribute('data-glossary');
-          lastClickedGlossary = glossaryId; // Guardar el término cliqueado
-          openGlossaryPopup();
-        });
-      });
+      setTimeout(setupGlossaryEvents, 0);
     }
-
-    let lastClickedGlossary = null; // Variable para rastrear el último término cliqueado
 
     function displayResult(result) {
       const card = document.getElementById("card");
       card.innerHTML = `
         <div class="contenedor-volver"><button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">
-          <span class="material-symbols-outlined">west</span>
+          <img src="img/west.svg" alt="Back">
         </button> </div>
         <div class="contenedor-principal"> <div class="respuesta"><h2 class="cloud-name">${result.name}</h2>
-        <img src="/img/${result.name.toLowerCase()}.png" alt="${result.name}" style="max-width: 100%; height: auto; margin-top: 20px;">
+        <img src="/img/${result.name.toLowerCase()}.jpg" alt="${result.name}" style="max-width: 100%; height: auto; margin-top: 20px;" onclick="openGlossaryPopup()">
         <div class="description">${result.description}</div></div>
         <div class="button-container" id="buttons">
           <button id="restart-btn" class="button restart" onclick="restart()">Volver a empezar</button>
         </div>
       `;
-      // Añadir evento de clic a los términos del glosario
-      document.querySelectorAll('.glossary-term').forEach(term => {
-        term.addEventListener('click', () => {
-          const glossaryId = term.getAttribute('data-glossary');
-          lastClickedGlossary = glossaryId; // Guardar el término cliqueado
-          openGlossaryPopup();
-        });
-      });
-      // Añadir pop-up al DOM si no existe
-      if (!document.querySelector('.glossary-popup')) {
-        const popup = document.createElement('div');
-        popup.className = 'glossary-popup';
-        popup.innerHTML = `
-          <button class="close-btn" onclick="closeGlossaryPopup()">×</button>
-          <h3>Glosario</h3>
-          <ul>
-            <li id="glossary-1"><strong>Relámpagos¹</strong>: Descargas eléctricas visibles en el cielo durante tormentas.</li>
-            <li id="glossary-2"><strong>Truenos²</strong>: Sonido fuerte causado por la expansión del aire caliente tras un relámpago.</li>
-            <li id="glossary-3"><strong>Bultos³</strong>: Elevaciones visibles en una nube, como protuberancias redondeadas; míralas desde el suelo como "montañitas" en el cielo.</li>
-            <li id="glossary-4"><strong>Nítido⁴</strong>: Borde claro y definido, sin difuminarse con el fondo.</li>
-            <li id="glossary-5"><strong>Capa⁵</strong>: Una extensión continua de nubes que cubre una gran área del cielo, generalmente sin interrupciones significativas.</li>
-            <li id="glossary-6"><strong>Difuso⁶</strong>: Borde borroso o poco claro, que parece desvanecerse.</li>
-            <li id="glossary-7"><strong>Velo⁷</strong>: Capa delgada y transparente de nubes que deja ver el Sol o la Luna.</li>
-            <li id="glossary-8"><strong>Halo⁸</strong>: Círculo de luz alrededor del Sol o la Luna, causado por cristales de hielo.</li>
-            <li id="glossary-9"><strong>Grisáceo⁹</strong>: Color entre gris y blanco, típico de nubes con humedad.</li>
-            <li id="glossary-10"><strong>Llovizna¹⁰</strong>: Lluvia muy fina y ligera con gotas pequeñas.</li>
-            <li id="glossary-11"><strong>Niebla¹¹</strong>: Capa densa de pequeñas gotas de agua cerca del suelo.</li>
-            <li id="glossary-12"><strong>Filamentos¹²</strong>: Hilos delgados y elongados formados por cristales de hielo en nubes altas.</li>
-            <li id="glossary-13"><strong>Elementos¹³</strong>: Partes individuales visibles de una nube, como gotas o cristales de hielo.</li>
-            <li id="glossary-14"><strong>Gránulos¹⁴</strong>: Pequeños puntos o bolitas visibles en una nube.</li>
-            <li id="glossary-15"><strong>Ondulaciones¹⁵</strong>: Patrones ondulados o en forma de olas en las nubes.</li>
-            <li id="glossary-16"><strong>Rodillos¹⁶</strong>: Formas cilíndricas o tubulares en las nubes.</li>
-          </ul>
-        `;
-        document.body.appendChild(popup);
-      }
+      setTimeout(setupGlossaryEvents, 0);
     }
 
     function restart() {
@@ -541,10 +550,26 @@
       const isResult = decisionTree[currentState] && decisionTree[currentState].result !== undefined;
       const isWelcome = currentState === "welcome";
 
-      if (backButton) { // Verificación para evitar el error
+      if (backButton) {
         backButton.style.display = (!isWelcome && !isResult) ? "block" : "none";
       }
     }
+
+    function setupGlossaryEvents() {
+      const terms = document.querySelectorAll('.glossary-term');
+      terms.forEach(term => {
+        term.removeEventListener('click', handleGlossaryClick);
+        term.addEventListener('click', handleGlossaryClick);
+      });
+    }
+
+    function handleGlossaryClick(event) {
+      const glossaryId = event.target.getAttribute('data-glossary');
+      lastClickedGlossary = glossaryId;
+      openGlossaryPopup();
+    }
+
+    let lastClickedGlossary = null;
 
     function openGlossaryPopup() {
       const popup = document.querySelector('.glossary-popup');
