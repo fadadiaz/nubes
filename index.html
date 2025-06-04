@@ -63,10 +63,11 @@
       margin: 0;
       font-weight: 100;
       flex: 1;
+      max-width: 370px; /* Modificación solicitada */
     }
 
     .description .glossary-term {
-      border-bottom-width: 1px; /* Modificación solicitada */
+      border-bottom-width: 1px;
     }
 
     .button-container {
@@ -121,7 +122,7 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      gap: 20px; /* Modificación solicitada */
+      gap: 20px;
     }
 
     .back-button {
@@ -234,15 +235,18 @@
       font-weight: 100;
     }
 
-    .glossary-popup .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: none;
-      border: none;
-      font-size: 40px;
-      cursor: pointer;
-    }
+.glossary-popup .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 40px;
+  cursor: pointer;
+}
+.glossary-popup:not(.open) .close-btn {
+  display: none;
+}
 
     .glossary-popup ul {
       list-style: none;
@@ -329,7 +333,7 @@
   <div class="card welcome" id="card">
     <p class="welcome-text">Identificador de nubes</p>
     <div class="button-container" id="buttons">
-      <button class="button vamos" onclick="startQuiz()">¡Vamos!</button>
+      <button class="button vamos" onclick="startQuiz()">Iniciar</button>
     </div>
   </div>
 
@@ -337,6 +341,7 @@
     let currentState = "welcome";
     let history = [];
     const maxSteps = 5;
+    let isShowingResult = false; // Nueva variable para rastrear si estamos mostrando un resultado
 
     const popup = document.createElement('div');
     popup.className = 'glossary-popup';
@@ -344,22 +349,22 @@
       <button class="close-btn" onclick="closeGlossaryPopup()"><img src="img/close.svg" alt="Close"></button>
       <h3>Glosario</h3>
       <ul>
-        <li id="glossary-1"><strong>Relámpagos¹</strong>: Descargas eléctricas visibles en el cielo durante tormentas.</li>
-        <li id="glossary-2"><strong>Truenos²</strong>: Sonido fuerte causado por la expansión del aire caliente tras un relámpago.</li>
-        <li id="glossary-3"><strong>Bultos³</strong>: Elevaciones visibles en una nube, como protuberancias redondeadas; míralas desde el suelo como "montañitas" en el cielo.</li>
-        <li id="glossary-4"><strong>Nítido⁴</strong>: Borde claro y definido, sin difuminarse con el fondo.</li>
-        <li id="glossary-5"><strong>Capa⁵</strong>: Una extensión continua de nubes que cubre una gran área del cielo, generalmente sin interrupciones significativas.</li>
-        <li id="glossary-6"><strong>Difuso⁶</strong>: Borde borroso o poco claro, que parece desvanecerse.</li>
-        <li id="glossary-7"><strong>Velo⁷</strong>: Capa delgada y transparente de nubes que deja ver el Sol o la Luna.</li>
-        <li id="glossary-8"><strong>Halo⁸</strong>: Círculo de luz alrededor del Sol o la Luna, causado por cristales de hielo.</li>
-        <li id="glossary-9"><strong>Grisáceo⁹</strong>: Color entre gris y blanco, típico de nubes con humedad.</li>
-        <li id="glossary-10"><strong>Llovizna¹⁰</strong>: Lluvia muy fina y ligera con gotas pequeñas.</li>
-        <li id="glossary-11"><strong>Niebla¹¹</strong>: Capa densa de pequeñas gotas de agua cerca del suelo.</li>
-        <li id="glossary-12"><strong>Filamentos¹²</strong>: Hilos delgados y elongados formados por cristales de hielo en nubes altas.</li>
-        <li id="glossary-13"><strong>Elementos¹³</strong>: Partes individuales visibles de una nube, como gotas o cristales de hielo.</li>
-        <li id="glossary-14"><strong>Gránulos¹⁴</strong>: Pequeños puntos o bolitas visibles en una nube.</li>
-        <li id="glossary-15"><strong>Ondulaciones¹⁵</strong>: Patrones ondulados o en forma de olas en las nubes.</li>
-        <li id="glossary-16"><strong>Rodillos¹⁶</strong>: Formas cilíndricas o tubulares en las nubes.</li>
+        <li id="glossary-1"><strong>Relámpagos<span class="glossary-number">1</span></strong> Descargas eléctricas visibles en el cielo durante tormentas.</li>
+        <li id="glossary-2"><strong>Truenos<span class="glossary-number">2</span></strong> Sonido fuerte causado por la expansión del aire caliente tras un relámpago.</li>
+        <li id="glossary-3"><strong>Bultos<span class="glossary-number">3</span></strong> Elevaciones visibles en una nube, como protuberancias redondeadas; míralas desde el suelo como "montañitas" en el cielo.</li>
+        <li id="glossary-4"><strong>Nítido<span class="glossary-number">4</span></strong> Borde claro y definido, sin difuminarse con el fondo.</li>
+        <li id="glossary-5"><strong>Capa<span class="glossary-number">5</span></strong> Una extensión continua de nubes que cubre una gran área del cielo, generalmente sin interrupciones significativas.</li>
+        <li id="glossary-6"><strong>Difuso<span class="glossary-number">6</span></strong> Borde borroso o poco claro, que parece desvanecerse.</li>
+        <li id="glossary-7"><strong>Velo<span class="glossary-number">7</span></strong> Capa delgada y transparente de nubes que deja ver el Sol o la Luna.</li>
+        <li id="glossary-8"><strong>Halo<span class="glossary-number">8</span></strong> Círculo de luz alrededor del Sol o la Luna, causado por cristales de hielo.</li>
+        <li id="glossary-9"><strong>Grisáceo<span class="glossary-number">9</span></strong> Color entre gris y blanco, típico de nubes con humedad.</li>
+        <li id="glossary-10"><strong>Llovizna<span class="glossary-number">10</span></strong> Lluvia muy fina y ligera con gotas pequeñas.</li>
+        <li id="glossary-11"><strong>Niebla<span class="glossary-number">11</span></strong> Capa densa de pequeñas gotas de agua cerca del suelo.</li>
+        <li id="glossary-12"><strong>Filamentos<span class="glossary-number">12</span></strong> Hilos delgados y elongados formados por cristales de hielo en nubes altas.</li>
+        <li id="glossary-13"><strong>Elementos<span class="glossary-number">13</span></strong> Partes individuales visibles de una nube, como gotas o cristales de hielo.</li>
+        <li id="glossary-14"><strong>Gránulos<span class="glossary-number">14</span></strong> Pequeños puntos o bolitas visibles en una nube.</li>
+        <li id="glossary-15"><strong>Ondulaciones<span class="glossary-number">15</span></strong> Patrones ondulados o en forma de olas en las nubes.</li>
+        <li id="glossary-16"><strong>Rodillos<span class="glossary-number">16</span></strong> Formas cilíndricas o tubulares en las nubes.</li>
       </ul>
     `;
     document.body.appendChild(popup);
@@ -367,54 +372,54 @@
     const decisionTree = {
       welcome: { action: "start" },
       q1: {
-        question: "¿Hay <span class='glossary-term' data-glossary='1'>relámpagos</span><span class='glossary-number'>¹</span> o <span class='glossary-term' data-glossary='2'>truenos</span><span class='glossary-number'>²</span>?",
-        yes: { result: { name: "Cumulonimbus", description: "Nube alta y densa con forma de torre, de color gris oscuro, que puede traer tormentas fuertes, <span class='glossary-term' data-glossary='1'>relámpagos</span><span class='glossary-number'>¹</span> y lluvia intensa." } },
+        question: "¿Hay <span class='glossary-term' data-glossary='1'>relámpagos</span><span class='glossary-number'>1</span> o <span class='glossary-term' data-glossary='2'>truenos</span><span class='glossary-number'>2</span>?",
+        yes: { result: { name: "Cumulonimbus", description: "Nube alta y densa con forma de torre, de color gris oscuro, que puede traer tormentas fuertes, <span class='glossary-term' data-glossary='1'>relámpagos</span><span class='glossary-number'>1</span> y lluvia intensa." } },
         no: "q2"
       },
       q2: {
-        question: "¿La nube tiene <span class='glossary-term' data-glossary='3'>bultos</span><span class='glossary-number'>³</span> o parece hinchada?",
+        question: "¿La nube tiene <span class='glossary-term' data-glossary='3'>bultos</span><span class='glossary-number'>3</span> o parece hinchada?",
         yes: "q3",
         no: "q4"
       },
       q3: {
-        question: "¿El borde superior de la nube es <span class='glossary-term' data-glossary='4'>nítido</span><span class='glossary-number'>⁴</span>?",
-        yes: { result: { name: "Cumulonimbus", description: "Nube alta y densa con forma de torre, de color gris oscuro, que puede traer tormentas fuertes, <span class='glossary-term' data-glossary='1'>relámpagos</span><span class='glossary-number'>¹</span> y lluvia intensa." } },
+        question: "¿El borde superior de la nube es <span class='glossary-term' data-glossary='4'>nítido</span><span class='glossary-number'>4</span>?",
+        yes: { result: { name: "Cumulonimbus", description: "Nube alta y densa con forma de torre, de color gris oscuro, que puede traer tormentas fuertes, <span class='glossary-term' data-glossary='1'>relámpagos</span><span class='glossary-number'>1</span> y lluvia intensa." } },
         no: { result: { name: "Cumulus", description: "Nube blanca y esponjosa con bordes definidos, forma de copo, que aparece a mediana altura en días soleados, sin lluvia." } }
       },
       q4: {
-        question: "¿La nube parece una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>⁵</span> extensa y lisa sin relieves?",
+        question: "¿La nube parece una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>5</span> extensa y lisa sin relieves?",
         yes: "q5",
         no: "q6"
       },
       q5: {
-        question: "¿El Sol o la Luna se ven como un punto <span class='glossary-term' data-glossary='6'>difuso</span><span class='glossary-number'>⁶</span>?",
-        yes: { result: { name: "Cirrostratus", description: "Nube alta y fina, de color blanco, que forma un <span class='glossary-term' data-glossary='7'>velo</span><span class='glossary-number'>⁷</span> y puede causar <span class='glossary-term' data-glossary='8'>halos</span><span class='glossary-number'>⁸</span> alrededor del Sol o la Luna, sin precipitaciones." } },
+        question: "¿El Sol o la Luna se ven como un punto <span class='glossary-term' data-glossary='6'>difuso</span><span class='glossary-number'>6</span>?",
+        yes: { result: { name: "Cirrostratus", description: "Nube alta y fina, de color blanco, que forma un <span class='glossary-term' data-glossary='7'>velo</span><span class='glossary-number'>7</span> y puede causar <span class='glossary-term' data-glossary='8'>halos</span><span class='glossary-number'>8</span> alrededor del Sol o la Luna, sin precipitaciones." } },
         no: "q7"
       },
       q7: {
-        question: "¿La nube forma una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>⁵</span> alta de color <span class='glossary-term' data-glossary='9'>grisáceo</span><span class='glossary-number'>⁹</span>?",
-        yes: { result: { name: "Altostratus", description: "Nube media, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>⁹</span> o azulada, que cubre el cielo uniformemente y puede traer lluvia ligera o nieve." } },
+        question: "¿La nube forma una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>5</span> alta de color <span class='glossary-term' data-glossary='9'>grisáceo</span><span class='glossary-number'>9</span>?",
+        yes: { result: { name: "Altostratus", description: "Nube media, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span> o azulada, que cubre el cielo uniformemente y puede traer lluvia ligera o nieve." } },
         no: "q8"
       },
       q8: {
-        question: "¿La nube es una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>⁵</span> baja oscura que podría traer lluvia?",
-        yes: { result: { name: "Nimbostratus", description: "Nube baja y oscura, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>⁹</span>, that cubre el cielo y produce lluvia o nieve constante." } },
-        no: { result: { name: "Stratus", description: "Nube baja, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>⁹</span> y uniforme, que parece una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>⁵</span> y puede generar <span class='glossary-term' data-glossary='10'>llovizna</span><span class='glossary-number'>¹⁰</span> o <span class='glossary-term' data-glossary='11'>niebla</span><span class='glossary-number'>¹¹</span>." } }
+        question: "¿La nube es una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>5</span> baja oscura que podría traer lluvia?",
+        yes: { result: { name: "Nimbostratus", description: "Nube baja y oscura, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span>, that cubre el cielo y produce lluvia o nieve constante." } },
+        no: { result: { name: "Stratus", description: "Nube baja, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span> y uniforme, que parece una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>5</span> y puede generar <span class='glossary-term' data-glossary='10'>llovizna</span><span class='glossary-number'>10</span> o <span class='glossary-term' data-glossary='11'>niebla</span><span class='glossary-number'>11</span>." } }
       },
       q6: {
-        question: "¿La nube tiene <span class='glossary-term' data-glossary='12'>filamentos</span><span class='glossary-number'>¹²</span> blancos y finos?",
-        yes: { result: { name: "Cirrus", description: "Nube alta, blanca y delgada con <span class='glossary-term' data-glossary='12'>filamentos</span><span class='glossary-number'>¹²</span>, de aspecto plumoso, sin precipitaciones." } },
+        question: "¿La nube tiene <span class='glossary-term' data-glossary='12'>filamentos</span><span class='glossary-number'>12</span> blancos y finos?",
+        yes: { result: { name: "Cirrus", description: "Nube alta, blanca y delgada con <span class='glossary-term' data-glossary='12'>filamentos</span><span class='glossary-number'>12</span>, de aspecto plumoso, sin precipitaciones." } },
         no: "q9"
       },
       q9: {
-        question: "¿Los <span class='glossary-term' data-glossary='13'>elementos</span><span class='glossary-number'>¹³</span> de la nube son pequeños como granos de arroz?",
-        yes: { result: { name: "Cirrocumulus", description: "Nube alta, blanca, formada por pequeños <span class='glossary-term' data-glossary='14'>gránulos</span><span class='glossary-number'>¹⁴</span> o <span class='glossary-term' data-glossary='15'>ondulaciones</span><span class='glossary-number'>¹⁵</span>, sin lluvia." } },
+        question: "¿Los <span class='glossary-term' data-glossary='13'>elementos</span><span class='glossary-number'>13</span> de la nube son pequeños como granos de arroz?",
+        yes: { result: { name: "Cirrocumulus", description: "Nube alta, blanca, formada por pequeños <span class='glossary-term' data-glossary='14'>gránulos</span><span class='glossary-number'>14</span> o <span class='glossary-term' data-glossary='15'>ondulaciones</span><span class='glossary-number'>15</span>, sin lluvia." } },
         no: "q10"
       },
       q10: {
-        question: "¿Los <span class='glossary-term' data-glossary='13'>elementos</span><span class='glossary-number'>¹³</span> de la nube son redondos y del tamaño de un dedo?",
-        yes: { result: { name: "Altocumulus", description: "Nube media, blanca o <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>⁹</span>, con <span class='glossary-term' data-glossary='15'>ondulaciones</span><span class='glossary-number'>¹⁵</span> o <span class='glossary-term' data-glossary='16'>rodillos</span><span class='glossary-number'>¹⁶</span>, que a veces precede a tormentas." } },
-        no: { result: { name: "Stratocumulus", description: "Nube baja, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>⁹</span> o blanca, con <span class='glossary-term' data-glossary='3'>bultos</span><span class='glossary-number'>³</span> redondeados, que puede traer <span class='glossary-term' data-glossary='10'>llovizna</span><span class='glossary-number'>¹⁰</span> ligera." } }
+        question: "¿Los <span class='glossary-term' data-glossary='13'>elementos</span><span class='glossary-number'>13</span> de la nube son redondos y del tamaño de un dedo?",
+        yes: { result: { name: "Altocumulus", description: "Nube media, blanca o <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span>, con <span class='glossary-term' data-glossary='15'>ondulaciones</span><span class='glossary-number'>15</span> o <span class='glossary-term' data-glossary='16'>rodillos</span><span class='glossary-number'>16</span>, que a veces precede a tormentas." } },
+        no: { result: { name: "Stratocumulus", description: "Nube baja, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span> o blanca, con <span class='glossary-term' data-glossary='3'>bultos</span><span class='glossary-number'>3</span> redondeados, que puede traer <span class='glossary-term' data-glossary='10'>llovizna</span><span class='glossary-number'>10</span> ligera." } }
       }
     };
 
@@ -426,6 +431,7 @@
         setTimeout(() => {
           card.classList.remove("welcome");
           currentState = "q1";
+          isShowingResult = false; // Restablecer al iniciar el quiz
           displayQuestion();
           updateProgress();
           toggleBackButton();
@@ -445,8 +451,10 @@
           const next = currentNode[response];
           if (typeof next === "string") {
             currentState = next;
+            isShowingResult = false; // No estamos mostrando un resultado aún
             displayQuestion();
           } else if (next && next.result) {
+            isShowingResult = true; // Estamos mostrando un resultado
             displayResult(next.result);
           }
           updateProgress();
@@ -467,18 +475,21 @@
             const previous = history[history.length - 1];
             if (previous) {
               currentState = previous.state;
+              isShowingResult = false; // Volvemos a una pregunta
               displayQuestion();
             } else {
               currentState = "q1";
+              isShowingResult = false; // Volvemos a una pregunta
               displayQuestion();
             }
           } else {
             currentState = "welcome";
+            isShowingResult = false; // Volvemos a la pantalla inicial
             card.classList.add("welcome");
             card.innerHTML = `
               <p class="welcome-text">Identificador de Nubes</p>
               <div class="button-container" id="buttons">
-                <button class="button vamos" onclick="startQuiz()">¡Vamos!</button>
+                <button class="button vamos" onclick="startQuiz()">Iniciar</button>
               </div>
             `;
           }
@@ -511,11 +522,11 @@
         <div class="contenedor-volver"><button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">
           <img src="img/west.svg" alt="Back">
         </button> </div>
-        <div class="contenedor-principal" style="flex-direction: column;"> <!-- Modificación solicitada solo para resultado -->
+        <div class="contenedor-principal" style="flex-direction: column;">
           <div class="respuesta">
             <h2 class="cloud-name">${result.name}</h2>
             <div class="description">${result.description}</div>
-            <img src="/nubes/img/${result.name.toLowerCase()}.jpg" alt="${result.name}" style="max-width: 410px; height: auto; margin-top: 20px;" onclick="openGlossaryPopup()"> <!-- Modificación solicitada -->
+            <img src="/nubes/img/${result.name.toLowerCase()}.jpg" alt="${result.name}" style="max-width: 410px; height: auto; margin-top: 20px;" onclick="openGlossaryPopup()">
           </div>
           <div class="button-container" id="buttons">
             <button id="restart-btn" class="button restart" onclick="restart()">Volver a empezar</button>
@@ -533,6 +544,7 @@
         setTimeout(() => {
           currentState = "q1";
           history = [];
+          isShowingResult = false; // Restablecer al reiniciar
           displayQuestion();
           updateProgress();
           toggleBackButton();
@@ -545,13 +557,12 @@
       const progressDot = document.getElementById("progress-dot");
       const progressBarWidth = document.querySelector(".progress-bar").offsetWidth;
       const steps = history.length;
-      const isResult = decisionTree[currentState] && decisionTree[currentState].result !== undefined;
       const isWelcome = currentState === "welcome";
 
       let progressPercent;
       if (isWelcome) {
         progressPercent = 0;
-      } else if (isResult) {
+      } else if (isShowingResult) { // Usamos la nueva variable para detectar la página de resultado
         progressPercent = 100;
       } else {
         progressPercent = (steps / maxSteps) * 100;
@@ -563,7 +574,7 @@
 
     function toggleBackButton() {
       const backButton = document.getElementById("back-btn");
-      const isResult = decisionTree[currentState] && decisionTree[currentState].result !== undefined;
+      const isResult = isShowingResult; // Usamos la nueva variable
       const isWelcome = currentState === "welcome";
 
       if (backButton) {
