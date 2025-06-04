@@ -275,11 +275,16 @@
 
     @media (max-width: 767px) {
       .card {
-        gap: 20px;
+gap: 20px;
         min-width: 330px;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
+        display: flex;
       }
+      .contenedor-principal {
+    display: flex;
+    flex-direction: column;
+}
 
       .welcome-text, .question, .cloud-name {
         font-size: 49.06px;
@@ -293,6 +298,7 @@
 
       .description {
         flex: 1;
+      font-size: 20px;
       }
 
       .button-container {
@@ -300,7 +306,11 @@
         width: auto;
         flex-grow: 1;
       }
-
+.pregunta, .respuesta {
+    flex: 2;
+    display: flex;
+    align-items: center;
+}
       .button {
         width: 50vw;
       }
@@ -320,9 +330,13 @@
         left: -66%;
       }
 
-      .glossary-popup.open {
+    .glossary-popup.open {
         left: 0;
-      }
+        width: 100%;
+    }
+      .glossary-popup ul {
+    width: 100%;
+}
     }
   </style>
 </head>
