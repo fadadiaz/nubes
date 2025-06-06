@@ -29,7 +29,6 @@
       display: flex;
       gap: 60px;
       width: 90vw;
-      height: 80vh;
       flex-flow: wrap;
       justify-content: space-between;
       align-items: center;
@@ -83,7 +82,7 @@
       background-color: #fff;
       color: #000;
       padding: 5px 8px 8px;
-      font-size: 24px;
+      font-size: 22px;
       cursor: pointer;
       font-family: "alegreya-sans-sc", sans-serif;
       text-transform: lowercase;
@@ -113,6 +112,7 @@
       align-items: center;
       justify-content: center;
       gap: 60px;
+      margin-bottom: 50px;
     } 
 
     .pregunta, .respuesta {
@@ -289,7 +289,13 @@
         display: flex;
         flex-direction: column;
         margin-top: 65px;
+        margin-bottom: 40px;
     }
+      .contenedor-img{
+          width: 100vw;
+    overflow: hidden;
+      }
+      
       .welcome-text, .question, .cloud-name {
         font-size: 49.06px;
         width: 90%;
@@ -560,7 +566,7 @@
           <div class="respuesta">
             <h2 class="cloud-name">${result.name}</h2>
             <div class="description">${result.description}</div>
-            <img src="/nubes/img/${result.name.toLowerCase()}.jpg" alt="${result.name}" style="max-width: 410px; height: auto; margin-top: 20px;" onclick="openGlossaryPopup()">
+            <div class="contenedor-img"> <img src="/nubes/img/${result.name.toLowerCase()}.jpg" alt="${result.name}" style="max-width: 410px; height: auto; margin-top: 20px;" onclick="openGlossaryPopup()"></div>
           </div>
           <div class="button-container" id="buttons">
             <button id="restart-btn" class="button restart" onclick="restart()">Volver a empezar</button>
