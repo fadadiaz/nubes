@@ -21,7 +21,7 @@
       background-color: #fff;
       font-family: "alegreya-sans", sans-serif;
       color: #000;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     .card {
@@ -41,6 +41,8 @@
 
     #card.welcome {
       max-height: 290px;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .card.blur {
@@ -134,7 +136,7 @@
     }
 
     .progress-container {
-      position: fixed;
+      position: absolute;
       top: 20px;
       width: 90vw;
       height: 20px;
@@ -275,31 +277,35 @@
 
     @media (max-width: 767px) {
       .card {
-gap: 20px;
-        min-width: 330px;
+        gap: 0;
+        height: 100%;
         flex-direction: row;
         align-items: center;
         display: flex;
+        width: unset;
+        max-width: 91vw;
       }
-      .contenedor-principal {
-    display: flex;
-    flex-direction: column;
-}
-
+    .contenedor-principal {
+        display: flex;
+        flex-direction: column;
+        margin-top: 65px;
+    }
       .welcome-text, .question, .cloud-name {
         font-size: 49.06px;
-        width: 100%;
+        width: 90%;
         max-width: none;
       }
 
       .cloud-name {
         flex: 2;
+        width: 100%;
       }
 
-      .description {
+    .description {
         flex: 1;
-      font-size: 20px;
-      }
+        font-size: 20px;
+        max-width: 250px;
+    }
 
       .button-container {
         max-width: 100vw;
@@ -308,15 +314,19 @@ gap: 20px;
       }
 .pregunta, .respuesta {
     flex: 2;
-    display: flex;
-    align-items: center;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+}
+.progress-container {
+    width: 91vw;
 }
       .button {
-        width: 50vw;
+       width: 70vw;
       }
 
       .restart {
-        width: 50vw;
+        width: 70vw;
       }
 
       .back-button {
@@ -337,6 +347,11 @@ gap: 20px;
       .glossary-popup ul {
     width: 100%;
 }
+    .contenedor-volver {
+        /* margin-top: 45px; */
+        position: absolute;
+        top: 54px;
+    }
     }
   </style>
 </head>
