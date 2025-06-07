@@ -100,6 +100,7 @@ body {
       justify-content: center;
       position: relative;
       min-width: 244px;
+          min-width: 200px;
     }
 
 .contenedor-volver {
@@ -117,21 +118,21 @@ body {
     width: 89vw;
     height: 100vh;
     gap: 60px;
-    justify-content: flex-start;
     align-items: center;
-  margin-top: -60px;
+    justify-content: center;
 }
 .pregunta, .respuesta {
     display: flex;
     justify-content: center;
-    height: 60%;
-    align-items: center;
 }
 .respuesta {
     display: flex;
     flex-direction: column;
     gap: 18px;
     height: unset;
+}
+    .pregunta {
+    max-width: 60%;
 }
 .back-button {
     background-color: #fff;
@@ -296,9 +297,7 @@ body {
 
     @media (max-width: 767px) {
 .contenedor-principal {
-    gap: 10px;
     flex-direction: column;
-  margin-top: 0;
 }
 .contenedor-volver {
     padding-top: 12px;
@@ -316,17 +315,17 @@ body {
         width: 90%;
         max-width: none;
       }
-
+.pregunta {
+    max-width: unset;
+}
       .cloud-name {
-        flex: 2;
         width: 100%;
       }
 
-      .description {
-        flex: 1;
-        font-size: 20px;
-        max-width: 250px;
-      }
+.description {
+    font-size: 20px;
+    max-width: 80%;
+}
 
       .glossary-term {
         border-bottom-width: 1px;
@@ -343,6 +342,9 @@ body {
 .button {
     width: 70vw;
     min-width: unset;
+}
+      .button-container {
+    width: 100%;
 }
 
       .restart {
@@ -362,9 +364,6 @@ body {
       .glossary-popup ul {
         width: 100%;
       }
-      .respuesta {
-    margin-bottom: 25px;
-}
     }
   </style>
 </head>
@@ -571,7 +570,7 @@ body {
        <div class="contenedor-volver"><button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">
          <img src="img/west.svg" alt="Back">
        </button> </div>
-       <div class="contenedor-principal" style="flex-direction: column; margin-top: 0;">
+       <div class="contenedor-principal" style="flex-direction: column;margin-top: 20px;justify-content: flex-start;">
          <div class="respuesta">
            <h2 class="cloud-name">${result.name}</h2>
            <div class="description">${result.description}</div>
