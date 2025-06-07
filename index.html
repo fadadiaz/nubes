@@ -39,16 +39,19 @@ body {
     flex-wrap: nowrap;
 }
 
-    #card.welcome {
-      max-height: 290px;
-      flex-direction: column;
-      gap: 20px;
-    }
-
     .card.blur {
       -webkit-filter: blur(4px);
       filter: blur(4px);
     }
+    .contenedor-welcome {
+    display: flex;
+    width: 89vw;
+    height: 100vh;
+    gap: 60px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
     .welcome-text,
     .question,
@@ -184,8 +187,7 @@ body {
 
 .abajo::after {
     width: 1px;
-    min-height: 20vh;
-    max-height: 30vh;
+    height: 50vh;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
@@ -328,6 +330,10 @@ body {
         border-bottom-width: 1px;
       }
 
+      .abajo::after {
+    min-height: 30vh;
+    max-height: 50vh;
+}
       .progress-container {
         width: 91vw;
       }
@@ -368,10 +374,12 @@ body {
     </div>
   </div>
   <div class="card welcome" id="card">
-    <p class="welcome-text">Identificador de nubes</p>
-    <div class="button-container" id="buttons">
-      <button class="button vamos" onclick="startQuiz()">Iniciar</button>
+    <div class="contenedor-welcome">
+      <p class="welcome-text">Identificador de nubes</p>
+      <div class="button-container" id="buttons">
+        <button class="button vamos" onclick="startQuiz()">Iniciar</button>
     </div>
+      </div>
   </div>
 
   <script>
@@ -524,9 +532,11 @@ body {
             isShowingResult = false; // Volvemos a la pantalla inicial
             card.classList.add("welcome");
             card.innerHTML = `
-             <p class="welcome-text">Identificador de Nubes</p>
-             <div class="button-container" id="buttons">
-               <button class="button vamos" onclick="startQuiz()">Iniciar</button>
+             <div class="contenedor-welcome">
+               <p class="welcome-text">Identificador de Nubes</p>
+               <div class="button-container" id="buttons">
+                 <button class="button vamos" onclick="startQuiz()">Iniciar</button>
+               </div>
              </div>
            `;
           }
