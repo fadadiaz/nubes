@@ -174,7 +174,7 @@
       background-color: #000;
       pointer-events: none;
     }
-
+/*
     .derecha::after {
       width: 50vw;
       height: 1px;
@@ -197,8 +197,37 @@
       top: 50%;
       right: 100%;
       transform: translateY(-50%);
-    }
+    }*/
 
+    #q1-yes::after {
+    width: 50vw;
+    height: 1px;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+}
+    
+    #q1-no::after {
+    width: 1px;
+    height: 50vh;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+    #q2-yes:after {
+    width: 1px;
+    height: 50vh;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+        #q2-no::after {
+    width: 50vw;
+    height: 1px;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+}
     .glossary-term {
       border-bottom: 3px solid #000;
       cursor: pointer;
