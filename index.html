@@ -14,30 +14,30 @@
       padding: 0;
     }
 
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background-color: #fff;
-      font-family: "alegreya-sans", sans-serif;
-      color: #000;
-      overflow-x: hidden;
-    }
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fff;
+    font-family: "alegreya-sans", sans-serif;
+    color: #000;
+    overflow: hidden;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
 
-    .card {
-      text-align: center;
-      display: flex;
-      gap: 60px;
-      width: 90vw;
-      flex-flow: wrap;
-      justify-content: space-between;
-      align-items: center;
-      transition: filter 0.5s ease, -webkit-filter 0.5s ease;
-      max-width: 80vw;
-      flex-direction: column;
-      align-content: center;
-    }
+.card {
+    text-align: center;
+    transition: filter 0.5s ease, -webkit-filter 0.5s ease;
+    overflow-x: hidden;
+    height: 100vh;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
+}
 
     #card.welcome {
       max-height: 290px;
@@ -68,19 +68,18 @@
       font-weight: 100;
       flex: 1;
       max-width: 370px;
-      /* Modificación solicitada */
     }
 
     .description .glossary-term {
       border-bottom-width: 1px;
     }
 
-    .button-container {
-      width: 280px;
-      gap: 10px;
-      display: flex;
-      flex-direction: column;
-    }
+.button-container {
+    width: 280px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
 
     .button {
       background-color: #fff;
@@ -100,68 +99,60 @@
       min-width: 244px;
     }
 
-    .contenedor-volver {
-      color: #000;
-      border: none;
-      font-size: 14px;
-      font-family: "alegreya-sans", sans-serif;
-      display: flex;
-      gap: 5px;
-      text-align: left;
-      width: 100%;
-      top: 60px;
-      position: absolute;
-      max-width: 90vw;
-    }
+.contenedor-volver {
+    color: #000;
+    border: none;
+    font-size: 14px;
+    font-family: "alegreya-sans", sans-serif;
+    display: flex;
+    width: 89vw;
+    padding-top: 20px;
+}
 
-    .contenedor-principal {
-      display: flex;
-      width: 100%;
-      flex-grow: 2;
-      height: 100%;
-      align-items: center;
-      justify-content: center;
-      gap: 60px;
-      margin-bottom: 50px;
-    }
+.contenedor-principal {
+    display: flex;
+    width: 89vw;
+    height: 100vh;
+    gap: 60px;
+    justify-content: flex-start;
+    align-items: center;
+}
+.pregunta, .respuesta {
+    display: flex;
+    justify-content: center;
+    height: 60%;
+    align-items: center;
+}
+.respuesta {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    height: unset;
+}
+.back-button {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-family: "alegreya-sans", sans-serif;
+    height: 20px;
+    width: 20px;
+}
 
-    .pregunta,
-    .respuesta {
-      max-width: 860px;
-    }
+.progress-container {
+    width: 90vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 25px;
+}
 
-    .respuesta {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .back-button {
-      background-color: #fff;
-      color: #000;
-      border: none;
-      cursor: pointer;
-      font-family: "alegreya-sans", sans-serif;
-    }
-
-    .progress-container {
-      position: absolute;
-      top: 20px;
-      width: 90vw;
-      height: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 1px;
-      background-color: #000;
-      position: relative;
-    }
+.progress-bar {
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    position: relative;
+}
 
     .progress-dot {
       width: 15px;
@@ -191,13 +182,14 @@
       transform: translateY(-50%);
     }
 
-    .abajo::after {
-      width: 1px;
-      height: 50vh;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+.abajo::after {
+    width: 1px;
+    min-height: 20vh;
+    max-height: 30vh;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
     .izquierda::before {
       width: 50vw;
@@ -300,22 +292,13 @@
     }
 
     @media (max-width: 767px) {
-      .card {
-        gap: 0;
-        height: 100%;
-        flex-direction: row;
-        align-items: center;
-        display: flex;
-        width: unset;
-        max-width: 91vw;
-      }
-
-      .contenedor-principal {
-        display: flex;
-        flex-direction: column;
-        margin-top: 65px;
-        margin-bottom: 40px;
-      }
+.contenedor-principal {
+    gap: 10px;
+    flex-direction: column;
+}
+.contenedor-volver {
+    padding-top: 12px;
+}
 
       .contenedor-img {
         width: 100vw;
@@ -345,37 +328,17 @@
         border-bottom-width: 1px;
       }
 
-      .button-container {
-        max-width: 100vw;
-        width: auto;
-        flex-grow: 1;
-      }
-
-      .pregunta,
-      .respuesta {
-        flex: 2;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-      }
-
       .progress-container {
         width: 91vw;
       }
 
-      .button {
-        width: 70vw;
-        min-width: unset;
-      }
+.button {
+    width: 70vw;
+    min-width: unset;
+}
 
       .restart {
         width: 70vw;
-      }
-
-      .back-button {
-        position: static;
-        width: auto;
-        text-align: center;
       }
 
       .glossary-popup {
@@ -391,12 +354,9 @@
       .glossary-popup ul {
         width: 100%;
       }
-
-      .contenedor-volver {
-        /* margin-top: 45px; */
-        position: absolute;
-        top: 54px;
-      }
+      .respuesta {
+    margin-bottom: 25px;
+}
     }
   </style>
 </head>
