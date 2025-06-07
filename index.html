@@ -1,701 +1,678 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Identificador de Nubes</title>
-  <link rel="stylesheet" href="https://use.typekit.net/oer0pgk.css">
-  <link rel="icon" type="image/x-icon" href="img/dot.ico">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Identificador de Nubes</title>
+<link rel="stylesheet" href="https://use.typekit.net/oer0pgk.css">
+<link rel="icon" type="image/x-icon" href="img/dot.ico">
+<style>
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
 
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background-color: #fff;
-      font-family: "alegreya-sans", sans-serif;
-      color: #000;
-      overflow-x: hidden;
-    }
+body {
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+background-color: #fff;
+font-family: "alegreya-sans", sans-serif;
+color: #000;
+overflow-x: hidden;
+}
 
-    .card {
-      text-align: center;
-      display: flex;
-      gap: 60px;
-      width: 90vw;
-      flex-flow: wrap;
-      justify-content: space-between;
-      align-items: center;
-      transition: filter 0.5s ease, -webkit-filter 0.5s ease;
-      max-width: 80vw;
-      flex-direction: column;
-      align-content: center;
-    }
+.card {
+text-align: center;
+display: flex;
+gap: 60px;
+width: 90vw;
+flex-flow: wrap;
+justify-content: space-between;
+align-items: center;
+transition: filter 0.5s ease, -webkit-filter 0.5s ease;
+max-width: 80vw;
+flex-direction: column;
+align-content: center;
+}
 
-    #card.welcome {
-      max-height: 290px;
-      flex-direction: column;
-      gap: 20px;
-    }
+#card.welcome {
+max-height: 290px;
+flex-direction: column;
+gap: 20px;
+}
 
-    .card.blur {
-      -webkit-filter: blur(4px);
-      filter: blur(4px);
-    }
+.card.blur {
+-webkit-filter: blur(4px);
+filter: blur(4px);
+}
 
-    .welcome-text, .question, .cloud-name {
-      font-family: "ff-more-web-pro-condensed", serif;
-      font-size: 90px;
-      text-align: center;
-    }
+.welcome-text, .question, .cloud-name {
+font-family: "ff-more-web-pro-condensed", serif;
+font-size: 90px;
+text-align: center;
+}
 
-    .cloud-name {
-      font-weight: 100;
-    }
+.cloud-name {
+font-weight: 100;
+}
 
-    .description {
-      font-size: 18px;
-      margin: 0;
-      font-weight: 100;
-      flex: 1;
-      max-width: 370px; /* Modificación solicitada */
-    }
+.description {
+font-size: 18px;
+margin: 0;
+font-weight: 100;
+flex: 1;
+max-width: 370px; /* Modificación solicitada */
+}
 
-    .description .glossary-term {
-      border-bottom-width: 1px;
-    }
+.description .glossary-term {
+border-bottom-width: 1px;
+}
 
-    .button-container {
-      width: 280px;
-      gap: 10px;
-      display: flex;
-      flex-direction: column;
-    }
+.button-container {
+width: 280px;
+gap: 10px;
+display: flex;
+flex-direction: column;
+}
 
-    .button {
-      background-color: #fff;
-      color: #000;
-      padding: 5px 8px 8px;
-      font-size: 22px;
-      cursor: pointer;
-      font-family: "alegreya-sans-sc", sans-serif;
-      text-transform: lowercase;
-      font-weight: 500;
-      border: 1px solid #000;
-      width: 100%;
-      letter-spacing: 0.6pt;
-      display: flex;
-      justify-content: center;
-      position: relative;
-    }
+.button {
+background-color: #fff;
+color: #000;
+padding: 5px 8px 8px;
+font-size: 22px;
+cursor: pointer;
+font-family: "alegreya-sans-sc", sans-serif;
+text-transform: lowercase;
+font-weight: 500;
+border: 1px solid #000;
+width: 100%;
+letter-spacing: 0.6pt;
+display: flex;
+justify-content: center;
+position: relative;
+}
 
-    .contenedor-volver {
-      color: #000;
-      border: none;
-      font-size: 14px;
-      font-family: "alegreya-sans", sans-serif;
-      display: flex;
-      gap: 5px;
-      text-align: left;
+.contenedor-volver {
+color: #000;
+border: none;
+font-size: 14px;
+font-family: "alegreya-sans", sans-serif;
+display: flex;
+gap: 5px;
+text-align: left;
           width: 100%;
     top: 60px;
     position: absolute;
     max-width: 90vw;
-    }
-    .contenedor-principal {
-      display: flex;
-      width: 100%;
-      flex-grow: 2;
-      height: 100%;
-      align-items: center;
-      justify-content: center;
-      gap: 60px;
-      margin-bottom: 50px;
-    } 
-
-    .pregunta, .respuesta {
-      max-width: 860px;
-    }
-
-    .respuesta {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .back-button {
-      background-color: #fff;
-      color: #000;
-      border: none;
-      cursor: pointer;
-      font-family: "alegreya-sans", sans-serif;
-    }
-
-    .progress-container {
-      position: absolute;
-      top: 20px;
-      width: 90vw;
-      height: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 1px;
-      background-color: #000;
-      position: relative;
-    }
-
-    .progress-dot {
-      width: 15px;
-      height: 15px;
-      background-color: #000;
-      border-radius: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      left: 0;
-      transition: left 0.5s ease;
-    }
-
-    .button::after, .button::before {
-      content: '';
-      position: absolute;
-      background-color: #000;
-      pointer-events: none;
-    }
-
-
-/*
-    .derecha::after {
-      width: 50vw;
-      height: 1px;
-      top: 50%;
-      left: 100%;
-      transform: translateY(-50%);
-    }
-
-    .abajo::after {
-      width: 1px;
-      height: 50vh;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .izquierda::before {
-      width: 50vw;
-      height: 1px;
-      top: 50%;
-      right: 100%;
-      transform: translateY(-50%);
-    }*/
-
-    #q1-yes::after, #q3-yes::after, #q5-yes::after, #q7-yes::after {
-    width: 50vw;
-    height: 1px;
-    top: 50%;
-    left: 100%;
-    transform: translateY(-50%);
 }
-    
-    #q1-no::after, #q3-no::after, #q5-no::after, #q7-no::after {
-    width: 1px;
-    height: 50vh;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-    #q2-yes:after, #q4-yes:after, #q6-yes:after, #q8-yes:after {
-    width: 1px;
-    height: 50vh;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-    #q2-no::after, #q4-no::after, #q6-no::after, #q8-no::after {
-    width: 50vw;
-    height: 1px;
-    top: 50%;
-    left: 100%;
-    transform: translateY(-50%);
+.contenedor-principal {
+display: flex;
+width: 100%;
+flex-grow: 2;
+height: 100%;
+align-items: center;
+justify-content: center;
+gap: 60px;
+margin-bottom: 50px;
+} 
+
+.pregunta, .respuesta {
+max-width: 860px;
 }
 
-    .glossary-term {
-      border-bottom: 3px solid #000;
-      cursor: pointer;
-      display: inline;
-    }
+.respuesta {
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+gap: 20px;
+}
 
-    .glossary-number {
-      font-size: 0.4em;
-      vertical-align: super;
-      color: #000;
-    }
+.back-button {
+background-color: #fff;
+color: #000;
+border: none;
+cursor: pointer;
+font-family: "alegreya-sans", sans-serif;
+}
 
-    .glossary-popup {
-      position: fixed;
-      top: 0;
-      left: -33%;
-      width: 33%;
-      height: 100%;
-      background: #fff;
-      border-right: 1px solid #000;
-      padding: 20px;
-      overflow-y: auto;
-      transition: left 0.3s ease;
-      z-index: 1001;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 45px;
-    }
+.progress-container {
+position: absolute;
+top: 20px;
+width: 90vw;
+height: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
 
-    .glossary-popup.open {
-      left: 0;
-    }
+.progress-bar {
+width: 100%;
+height: 1px;
+background-color: #000;
+position: relative;
+}
 
-    .glossary-popup h3 {
-      margin-top: 0;
-      font-family: "ff-more-web-pro-condensed", serif;
-      font-size: 90px;
-      text-align: center;
-      font-weight: 100;
-    }
+.progress-dot {
+width: 15px;
+height: 15px;
+background-color: #000;
+border-radius: 50%;
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+left: 0;
+transition: left 0.5s ease;
+}
+
+.button::after, .button::before {
+content: '';
+position: absolute;
+background-color: #000;
+pointer-events: none;
+}
+
+.derecha::after {
+width: 50vw;
+height: 1px;
+top: 50%;
+left: 100%;
+transform: translateY(-50%);
+}
+
+.abajo::after {
+width: 1px;
+height: 50vh;
+top: 100%;
+left: 50%;
+transform: translateX(-50%);
+}
+
+.izquierda::before {
+width: 50vw;
+height: 1px;
+top: 50%;
+right: 100%;
+transform: translateY(-50%);
+}
+
+.vamos::after, .restart::after {
+width: 1px;
+height: 50vh;
+top: 100%;
+left: 50%;
+transform: translateX(-50%);
+}
+  
+.glossary-term {
+border-bottom: 3px solid #000;
+cursor: pointer;
+display: inline;
+}
+
+.glossary-number {
+font-size: 0.4em;
+vertical-align: super;
+color: #000;
+}
+
+.glossary-popup {
+position: fixed;
+top: 0;
+left: -33%;
+width: 33%;
+height: 100%;
+background: #fff;
+border-right: 1px solid #000;
+padding: 20px;
+overflow-y: auto;
+transition: left 0.3s ease;
+z-index: 1001;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 45px;
+}
+
+.glossary-popup.open {
+left: 0;
+}
+
+.glossary-popup h3 {
+margin-top: 0;
+font-family: "ff-more-web-pro-condensed", serif;
+font-size: 90px;
+text-align: center;
+font-weight: 100;
+}
 .description .glossary-number {
-    font-size: 15px;
+font-size: 15px;
 }
 .glossary-popup .close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 40px;
-  cursor: pointer;
+position: absolute;
+top: 10px;
+right: 10px;
+background: none;
+border: none;
+font-size: 40px;
+cursor: pointer;
 }
 .glossary-popup:not(.open) .close-btn {
-  display: none;
+display: none;
 }
 
-    .glossary-popup ul {
-      list-style: none;
-      padding: 0;
-      width: 500px;
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-    }
-
-    .glossary-popup.open ul li {
-      display: flex;
-      flex-direction: column;
-      font-size: 18px;
-      gap: 5px;
-    }
-
-    .glossary-popup.open strong {
-      font-family: "ff-more-web-pro-condensed", serif;
-      font-size: 60px;
-      text-align: left;
-      font-weight: 100;
-    }
-
-    @media (max-width: 767px) {
-      .card {
-        gap: 0;
-        height: 100%;
-        flex-direction: row;
-        align-items: center;
-        display: flex;
-        width: unset;
-        max-width: 91vw;
-      }
-    .contenedor-principal {
-        display: flex;
-        flex-direction: column;
-        margin-top: 65px;
-        margin-bottom: 40px;
-    }
-      .contenedor-img{
-          width: 100vw;
-    overflow: hidden;
-      }
-      
-      .welcome-text, .question, .cloud-name {
-        font-size: 49.06px;
-        width: 90%;
-        max-width: none;
-      }
-
-      .cloud-name {
-        flex: 2;
-        width: 100%;
-      }
-
-    .description {
-        flex: 1;
-        font-size: 20px;
-        max-width: 250px;
-    }
-      .glossary-term {
-    border-bottom-width: 1px;
+.glossary-popup ul {
+list-style: none;
+padding: 0;
+width: 500px;
+display: flex;
+flex-direction: column;
+gap: 40px;
 }
 
-      .button-container {
-        max-width: 100vw;
-        width: auto;
-        flex-grow: 1;
-      }
+.glossary-popup.open ul li {
+display: flex;
+flex-direction: column;
+font-size: 18px;
+gap: 5px;
+}
+
+.glossary-popup.open strong {
+font-family: "ff-more-web-pro-condensed", serif;
+font-size: 60px;
+text-align: left;
+font-weight: 100;
+}
+
+@media (max-width: 767px) {
+.card {
+gap: 0;
+height: 100%;
+flex-direction: row;
+align-items: center;
+display: flex;
+width: unset;
+max-width: 91vw;
+}
+.contenedor-principal {
+display: flex;
+flex-direction: column;
+margin-top: 65px;
+margin-bottom: 40px;
+}
+.contenedor-img{
+width: 100vw;
+overflow: hidden;
+}
+
+.welcome-text, .question, .cloud-name {
+font-size: 49.06px;
+width: 90%;
+max-width: none;
+}
+
+.cloud-name {
+flex: 2;
+width: 100%;
+}
+
+.description {
+flex: 1;
+font-size: 20px;
+max-width: 250px;
+}
+.glossary-term {
+border-bottom-width: 1px;
+}
+
+.button-container {
+max-width: 100vw;
+width: auto;
+flex-grow: 1;
+}
 .pregunta, .respuesta {
-    flex: 2;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
+flex: 2;
+display: flex;
+align-items: center;
+flex-direction: column;
 }
 .progress-container {
-    width: 91vw;
+width: 91vw;
 }
-      .button {
-       width: 70vw;
-      }
-
-      .restart {
-        width: 70vw;
-      }
-
-      .back-button {
-        position: static;
-        width: auto;
-        text-align: center;
-      }
-
-      .glossary-popup {
-        width: 66%;
-        left: -66%;
-      }
-
-    .glossary-popup.open {
-        left: 0;
-        width: 100vw;
-    }
-      .glossary-popup ul {
-    width: 100%;
+.button {
+width: 70vw;
+min-width: unset;
 }
-    .contenedor-volver {
-        /* margin-top: 45px; */
-        position: absolute;
-        top: 54px;
-    }
-    }
-  </style>
+
+.restart {
+width: 70vw;
+}
+
+.back-button {
+position: static;
+width: auto;
+text-align: center;
+}
+
+.glossary-popup {
+width: 66%;
+left: -66%;
+}
+
+.glossary-popup.open {
+left: 0;
+width: 100vw;
+}
+.glossary-popup ul {
+width: 100%;
+}
+.contenedor-volver {
+/* margin-top: 45px; */
+position: absolute;
+top: 54px;
+}
+}
+</style>
 </head>
 <body>
-  <div class="progress-container">
-    <div class="progress-bar">
-      <div class="progress-dot" id="progress-dot"></div>
-    </div>
-  </div>
-  <div class="card welcome" id="card">
-    <p class="welcome-text">Identificador de nubes</p>
-    <div class="button-container" id="buttons">
-      <button class="button vamos" onclick="startQuiz()">Iniciar</button>
-    </div>
-  </div>
+<div class="progress-container">
+<div class="progress-bar">
+<div class="progress-dot" id="progress-dot"></div>
+</div>
+</div>
+<div class="card welcome" id="card">
+<p class="welcome-text">Identificador de nubes</p>
+<div class="button-container" id="buttons">
+<button class="button vamos" onclick="startQuiz()">Iniciar</button>
+</div>
+</div>
 
-  <script>
-    let currentState = "welcome";
-    let history = [];
-    const maxSteps = 5;
-    let isShowingResult = false; // Nueva variable para rastrear si estamos mostrando un resultado
+<script>
+let currentState = "welcome";
+let history = [];
+const maxSteps = 5;
+let isShowingResult = false; // Nueva variable para rastrear si estamos mostrando un resultado
 
-    const popup = document.createElement('div');
-    popup.className = 'glossary-popup';
-    popup.innerHTML = `
-      <button class="close-btn" onclick="closeGlossaryPopup()"><img src="img/close.svg" alt="Close"></button>
-      <h3>Glosario</h3>
-      <ul>
-        <li id="glossary-1"><strong>Relámpagos<span class="glossary-number">1</span></strong> Descargas eléctricas visibles en el cielo durante tormentas.</li>
-        <li id="glossary-2"><strong>Truenos<span class="glossary-number">2</span></strong> Sonido fuerte causado por la expansión del aire caliente tras un relámpago.</li>
-        <li id="glossary-3"><strong>Bultos<span class="glossary-number">3</span></strong> Elevaciones visibles en una nube, como protuberancias redondeadas; míralas desde el suelo como "montañitas" en el cielo.</li>
-        <li id="glossary-4"><strong>Nítido<span class="glossary-number">4</span></strong> Borde claro y definido, sin difuminarse con el fondo.</li>
-        <li id="glossary-5"><strong>Capa<span class="glossary-number">5</span></strong> Una extensión continua de nubes que cubre una gran área del cielo, generalmente sin interrupciones significativas.</li>
-        <li id="glossary-6"><strong>Difuso<span class="glossary-number">6</span></strong> Borde borroso o poco claro, que parece desvanecerse.</li>
-        <li id="glossary-7"><strong>Velo<span class="glossary-number">7</span></strong> Capa delgada y transparente de nubes que deja ver el Sol o la Luna.</li>
-        <li id="glossary-8"><strong>Halo<span class="glossary-number">8</span></strong> Círculo de luz alrededor del Sol o la Luna, causado por cristales de hielo.</li>
-        <li id="glossary-9"><strong>Grisáceo<span class="glossary-number">9</span></strong> Color entre gris y blanco, típico de nubes con humedad.</li>
-        <li id="glossary-10"><strong>Llovizna<span class="glossary-number">10</span></strong> Lluvia muy fina y ligera con gotas pequeñas.</li>
-        <li id="glossary-11"><strong>Niebla<span class="glossary-number">11</span></strong> Capa densa de pequeñas gotas de agua cerca del suelo.</li>
-        <li id="glossary-12"><strong>Filamentos<span class="glossary-number">12</span></strong> Hilos delgados y elongados formados por cristales de hielo en nubes altas.</li>
-        <li id="glossary-13"><strong>Elementos<span class="glossary-number">13</span></strong> Partes individuales visibles de una nube, como gotas o cristales de hielo.</li>
-        <li id="glossary-14"><strong>Gránulos<span class="glossary-number">14</span></strong> Pequeños puntos o bolitas visibles en una nube.</li>
-        <li id="glossary-15"><strong>Ondulaciones<span class="glossary-number">15</span></strong> Patrones ondulados o en forma de olas en las nubes.</li>
-        <li id="glossary-16"><strong>Rodillos<span class="glossary-number">16</span></strong> Formas cilíndricas o tubulares en las nubes.</li>
-      </ul>
-    `;
-    document.body.appendChild(popup);
+const popup = document.createElement('div');
+popup.className = 'glossary-popup';
+popup.innerHTML = `
+     <button class="close-btn" onclick="closeGlossaryPopup()"><img src="img/close.svg" alt="Close"></button>
+     <h3>Glosario</h3>
+     <ul>
+       <li id="glossary-1"><strong>Relámpagos<span class="glossary-number">1</span></strong> Descargas eléctricas visibles en el cielo durante tormentas.</li>
+       <li id="glossary-2"><strong>Truenos<span class="glossary-number">2</span></strong> Sonido fuerte causado por la expansión del aire caliente tras un relámpago.</li>
+       <li id="glossary-3"><strong>Bultos<span class="glossary-number">3</span></strong> Elevaciones visibles en una nube, como protuberancias redondeadas; míralas desde el suelo como "montañitas" en el cielo.</li>
+       <li id="glossary-4"><strong>Nítido<span class="glossary-number">4</span></strong> Borde claro y definido, sin difuminarse con el fondo.</li>
+       <li id="glossary-5"><strong>Capa<span class="glossary-number">5</span></strong> Una extensión continua de nubes que cubre una gran área del cielo, generalmente sin interrupciones significativas.</li>
+       <li id="glossary-6"><strong>Difuso<span class="glossary-number">6</span></strong> Borde borroso o poco claro, que parece desvanecerse.</li>
+       <li id="glossary-7"><strong>Velo<span class="glossary-number">7</span></strong> Capa delgada y transparente de nubes que deja ver el Sol o la Luna.</li>
+       <li id="glossary-8"><strong>Halo<span class="glossary-number">8</span></strong> Círculo de luz alrededor del Sol o la Luna, causado por cristales de hielo.</li>
+       <li id="glossary-9"><strong>Grisáceo<span class="glossary-number">9</span></strong> Color entre gris y blanco, típico de nubes con humedad.</li>
+       <li id="glossary-10"><strong>Llovizna<span class="glossary-number">10</span></strong> Lluvia muy fina y ligera con gotas pequeñas.</li>
+       <li id="glossary-11"><strong>Niebla<span class="glossary-number">11</span></strong> Capa densa de pequeñas gotas de agua cerca del suelo.</li>
+       <li id="glossary-12"><strong>Filamentos<span class="glossary-number">12</span></strong> Hilos delgados y elongados formados por cristales de hielo en nubes altas.</li>
+       <li id="glossary-13"><strong>Elementos<span class="glossary-number">13</span></strong> Partes individuales visibles de una nube, como gotas o cristales de hielo.</li>
+       <li id="glossary-14"><strong>Gránulos<span class="glossary-number">14</span></strong> Pequeños puntos o bolitas visibles en una nube.</li>
+       <li id="glossary-15"><strong>Ondulaciones<span class="glossary-number">15</span></strong> Patrones ondulados o en forma de olas en las nubes.</li>
+       <li id="glossary-16"><strong>Rodillos<span class="glossary-number">16</span></strong> Formas cilíndricas o tubulares en las nubes.</li>
+     </ul>
+   `;
+document.body.appendChild(popup);
 
-    const decisionTree = {
-      welcome: { action: "start" },
-      q1: {
-        question: "¿Hay <span class='glossary-term' data-glossary='1'>relámpagos</span><span class='glossary-number'>1</span> o <span class='glossary-term' data-glossary='2'>truenos</span><span class='glossary-number'>2</span>?",
-        yes: { result: { name: "Cumulonimbus", description: "Nube alta y densa con forma de torre, de color gris oscuro, que puede traer tormentas fuertes, <span class='glossary-term' data-glossary='1'>relámpagos</span><span class='glossary-number'>1</span> y lluvia intensa." } },
-        no: "q2"
-      },
-      q2: {
-        question: "¿La nube tiene <span class='glossary-term' data-glossary='3'>bultos</span><span class='glossary-number'>3</span> o parece hinchada?",
-        yes: "q3",
-        no: "q4"
-      },
-      q3: {
-        question: "¿El borde superior de la nube es <span class='glossary-term' data-glossary='4'>nítido</span><span class='glossary-number'>4</span>?",
-        yes: { result: { name: "Cumulonimbus", description: "Nube alta y densa con forma de torre, de color gris oscuro, que puede traer tormentas fuertes, <span class='glossary-term' data-glossary='1'>relámpagos</span><span class='glossary-number'>1</span> y lluvia intensa." } },
-        no: { result: { name: "Cumulus", description: "Nube blanca y esponjosa con bordes definidos, forma de copo, que aparece a mediana altura en días soleados, sin lluvia." } }
-      },
-      q4: {
-        question: "¿La nube parece una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>5</span> extensa y lisa sin relieves?",
-        yes: "q5",
-        no: "q6"
-      },
-      q5: {
-        question: "¿El Sol o la Luna se ven como un punto <span class='glossary-term' data-glossary='6'>difuso</span><span class='glossary-number'>6</span>?",
-        yes: { result: { name: "Cirrostratus", description: "Nube alta y fina, de color blanco, que forma un <span class='glossary-term' data-glossary='7'>velo</span><span class='glossary-number'>7</span> y puede causar <span class='glossary-term' data-glossary='8'>halos</span><span class='glossary-number'>8</span> alrededor del Sol o la Luna, sin precipitaciones." } },
-        no: "q7"
-      },
-      q7: {
-        question: "¿La nube forma una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>5</span> alta de color <span class='glossary-term' data-glossary='9'>grisáceo</span><span class='glossary-number'>9</span>?",
-        yes: { result: { name: "Altostratus", description: "Nube media, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span> o azulada, que cubre el cielo uniformemente y puede traer lluvia ligera o nieve." } },
-        no: "q8"
-      },
-      q8: {
-        question: "¿La nube es una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>5</span> baja oscura que podría traer lluvia?",
-        yes: { result: { name: "Nimbostratus", description: "Nube baja y oscura, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span>, that cubre el cielo y produce lluvia o nieve constante." } },
-        no: { result: { name: "Stratus", description: "Nube baja, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span> y uniforme, que parece una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>5</span> y puede generar <span class='glossary-term' data-glossary='10'>llovizna</span><span class='glossary-number'>10</span> o <span class='glossary-term' data-glossary='11'>niebla</span><span class='glossary-number'>11</span>." } }
-      },
-      q6: {
-        question: "¿La nube tiene <span class='glossary-term' data-glossary='12'>filamentos</span><span class='glossary-number'>12</span> blancos y finos?",
-        yes: { result: { name: "Cirrus", description: "Nube alta, blanca y delgada con <span class='glossary-term' data-glossary='12'>filamentos</span><span class='glossary-number'>12</span>, de aspecto plumoso, sin precipitaciones." } },
-        no: "q9"
-      },
-      q9: {
-        question: "¿Los <span class='glossary-term' data-glossary='13'>elementos</span><span class='glossary-number'>13</span> de la nube son pequeños como granos de arroz?",
-        yes: { result: { name: "Cirrocumulus", description: "Nube alta, blanca, formada por pequeños <span class='glossary-term' data-glossary='14'>gránulos</span><span class='glossary-number'>14</span> o <span class='glossary-term' data-glossary='15'>ondulaciones</span><span class='glossary-number'>15</span>, sin lluvia." } },
-        no: "q10"
-      },
-      q10: {
-        question: "¿Los <span class='glossary-term' data-glossary='13'>elementos</span><span class='glossary-number'>13</span> de la nube son redondos y del tamaño de un dedo?",
-        yes: { result: { name: "Altocumulus", description: "Nube media, blanca o <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span>, con <span class='glossary-term' data-glossary='15'>ondulaciones</span><span class='glossary-number'>15</span> o <span class='glossary-term' data-glossary='16'>rodillos</span><span class='glossary-number'>16</span>, que a veces precede a tormentas." } },
-        no: { result: { name: "Stratocumulus", description: "Nube baja, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span> o blanca, con <span class='glossary-term' data-glossary='3'>bultos</span><span class='glossary-number'>3</span> redondeados, que puede traer <span class='glossary-term' data-glossary='10'>llovizna</span><span class='glossary-number'>10</span> ligera." } }
-      }
-    };
+const decisionTree = {
+welcome: { action: "start" },
+q1: {
+question: "¿Hay <span class='glossary-term' data-glossary='1'>relámpagos</span><span class='glossary-number'>1</span> o <span class='glossary-term' data-glossary='2'>truenos</span><span class='glossary-number'>2</span>?",
+yes: { result: { name: "Cumulonimbus", description: "Nube alta y densa con forma de torre, de color gris oscuro, que puede traer tormentas fuertes, <span class='glossary-term' data-glossary='1'>relámpagos</span><span class='glossary-number'>1</span> y lluvia intensa." } },
+no: "q2"
+},
+q2: {
+question: "¿La nube tiene <span class='glossary-term' data-glossary='3'>bultos</span><span class='glossary-number'>3</span> o parece hinchada?",
+yes: "q3",
+no: "q4"
+},
+q3: {
+question: "¿El borde superior de la nube es <span class='glossary-term' data-glossary='4'>nítido</span><span class='glossary-number'>4</span>?",
+yes: { result: { name: "Cumulonimbus", description: "Nube alta y densa con forma de torre, de color gris oscuro, que puede traer tormentas fuertes, <span class='glossary-term' data-glossary='1'>relámpagos</span><span class='glossary-number'>1</span> y lluvia intensa." } },
+no: { result: { name: "Cumulus", description: "Nube blanca y esponjosa con bordes definidos, forma de copo, que aparece a mediana altura en días soleados, sin lluvia." } }
+},
+q4: {
+question: "¿La nube parece una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>5</span> extensa y lisa sin relieves?",
+yes: "q5",
+no: "q6"
+},
+q5: {
+question: "¿El Sol o la Luna se ven como un punto <span class='glossary-term' data-glossary='6'>difuso</span><span class='glossary-number'>6</span>?",
+yes: { result: { name: "Cirrostratus", description: "Nube alta y fina, de color blanco, que forma un <span class='glossary-term' data-glossary='7'>velo</span><span class='glossary-number'>7</span> y puede causar <span class='glossary-term' data-glossary='8'>halos</span><span class='glossary-number'>8</span> alrededor del Sol o la Luna, sin precipitaciones." } },
+no: "q7"
+},
+q7: {
+question: "¿La nube forma una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>5</span> alta de color <span class='glossary-term' data-glossary='9'>grisáceo</span><span class='glossary-number'>9</span>?",
+yes: { result: { name: "Altostratus", description: "Nube media, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span> o azulada, que cubre el cielo uniformemente y puede traer lluvia ligera o nieve." } },
+no: "q8"
+},
+q8: {
+question: "¿La nube es una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>5</span> baja oscura que podría traer lluvia?",
+yes: { result: { name: "Nimbostratus", description: "Nube baja y oscura, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span>, that cubre el cielo y produce lluvia o nieve constante." } },
+no: { result: { name: "Stratus", description: "Nube baja, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span> y uniforme, que parece una <span class='glossary-term' data-glossary='5'>capa</span><span class='glossary-number'>5</span> y puede generar <span class='glossary-term' data-glossary='10'>llovizna</span><span class='glossary-number'>10</span> o <span class='glossary-term' data-glossary='11'>niebla</span><span class='glossary-number'>11</span>." } }
+},
+q6: {
+question: "¿La nube tiene <span class='glossary-term' data-glossary='12'>filamentos</span><span class='glossary-number'>12</span> blancos y finos?",
+yes: { result: { name: "Cirrus", description: "Nube alta, blanca y delgada con <span class='glossary-term' data-glossary='12'>filamentos</span><span class='glossary-number'>12</span>, de aspecto plumoso, sin precipitaciones." } },
+no: "q9"
+},
+q9: {
+question: "¿Los <span class='glossary-term' data-glossary='13'>elementos</span><span class='glossary-number'>13</span> de la nube son pequeños como granos de arroz?",
+yes: { result: { name: "Cirrocumulus", description: "Nube alta, blanca, formada por pequeños <span class='glossary-term' data-glossary='14'>gránulos</span><span class='glossary-number'>14</span> o <span class='glossary-term' data-glossary='15'>ondulaciones</span><span class='glossary-number'>15</span>, sin lluvia." } },
+no: "q10"
+},
+q10: {
+question: "¿Los <span class='glossary-term' data-glossary='13'>elementos</span><span class='glossary-number'>13</span> de la nube son redondos y del tamaño de un dedo?",
+yes: { result: { name: "Altocumulus", description: "Nube media, blanca o <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span>, con <span class='glossary-term' data-glossary='15'>ondulaciones</span><span class='glossary-number'>15</span> o <span class='glossary-term' data-glossary='16'>rodillos</span><span class='glossary-number'>16</span>, que a veces precede a tormentas." } },
+no: { result: { name: "Stratocumulus", description: "Nube baja, <span class='glossary-term' data-glossary='9'>grisácea</span><span class='glossary-number'>9</span> o blanca, con <span class='glossary-term' data-glossary='3'>bultos</span><span class='glossary-number'>3</span> redondeados, que puede traer <span class='glossary-term' data-glossary='10'>llovizna</span><span class='glossary-number'>10</span> ligera." } }
+}
+};
 
-    function startQuiz() {
-      const card = document.getElementById("card");
-      card.classList.add("blur");
-      setTimeout(() => {
-        card.innerHTML = '';
-        setTimeout(() => {
-          card.classList.remove("welcome");
-          currentState = "q1";
-          isShowingResult = false; // Restablecer al iniciar el quiz
-          displayQuestion();
-          updateProgress();
-          toggleBackButton();
-          card.classList.remove("blur");
-        }, 100);
-      }, 500);
-    }
+function startQuiz() {
+const card = document.getElementById("card");
+card.classList.add("blur");
+setTimeout(() => {
+card.innerHTML = '';
+setTimeout(() => {
+card.classList.remove("welcome");
+currentState = "q1";
+isShowingResult = false; // Restablecer al iniciar el quiz
+displayQuestion();
+updateProgress();
+toggleBackButton();
+card.classList.remove("blur");
+}, 100);
+}, 500);
+}
 
-    function answer(response) {
-      const card = document.getElementById("card");
-      card.classList.add("blur");
-      setTimeout(() => {
-        card.innerHTML = '';
-        setTimeout(() => {
-          history.push({ state: currentState, response: response });
-          const currentNode = decisionTree[currentState];
-          const next = currentNode[response];
-          if (typeof next === "string") {
-            currentState = next;
-            isShowingResult = false; // No estamos mostrando un resultado aún
-            displayQuestion();
-          } else if (next && next.result) {
-            isShowingResult = true; // Estamos mostrando un resultado
-            displayResult(next.result);
-          }
-          updateProgress();
-          toggleBackButton();
-          card.classList.remove("blur");
-        }, 100);
-      }, 500);
-    }
+function answer(response) {
+const card = document.getElementById("card");
+card.classList.add("blur");
+setTimeout(() => {
+card.innerHTML = '';
+setTimeout(() => {
+history.push({ state: currentState, response: response });
+const currentNode = decisionTree[currentState];
+const next = currentNode[response];
+if (typeof next === "string") {
+currentState = next;
+isShowingResult = false; // No estamos mostrando un resultado aún
+displayQuestion();
+} else if (next && next.result) {
+isShowingResult = true; // Estamos mostrando un resultado
+displayResult(next.result);
+}
+updateProgress();
+toggleBackButton();
+card.classList.remove("blur");
+}, 100);
+}, 500);
+}
 
-    function goBack() {
-      const card = document.getElementById("card");
-      card.classList.add("blur");
-      setTimeout(() => {
-        card.innerHTML = '';
-        setTimeout(() => {
-          if (history.length > 0) {
-            history.pop();
-            const previous = history[history.length - 1];
-            if (previous) {
-              currentState = previous.state;
-              isShowingResult = false; // Volvemos a una pregunta
-              displayQuestion();
-            } else {
-              currentState = "q1";
-              isShowingResult = false; // Volvemos a una pregunta
-              displayQuestion();
-            }
-          } else {
-            currentState = "welcome";
-            isShowingResult = false; // Volvemos a la pantalla inicial
-            card.classList.add("welcome");
-            card.innerHTML = `
-              <p class="welcome-text">Identificador de Nubes</p>
-              <div class="button-container" id="buttons">
-                <button class="button vamos" onclick="startQuiz()">Iniciar</button>
-              </div>
-            `;
-          }
-          updateProgress();
-          toggleBackButton();
-          card.classList.remove("blur");
-        }, 100);
-      }, 500);
-    }
+function goBack() {
+const card = document.getElementById("card");
+card.classList.add("blur");
+setTimeout(() => {
+card.innerHTML = '';
+setTimeout(() => {
+if (history.length > 0) {
+history.pop();
+const previous = history[history.length - 1];
+if (previous) {
+currentState = previous.state;
+isShowingResult = false; // Volvemos a una pregunta
+displayQuestion();
+} else {
+currentState = "q1";
+isShowingResult = false; // Volvemos a una pregunta
+displayQuestion();
+}
+} else {
+currentState = "welcome";
+isShowingResult = false; // Volvemos a la pantalla inicial
+card.classList.add("welcome");
+card.innerHTML = `
+             <p class="welcome-text">Identificador de Nubes</p>
+             <div class="button-container" id="buttons">
+               <button class="button vamos" onclick="startQuiz()">Iniciar</button>
+             </div>
+           `;
+}
+updateProgress();
+toggleBackButton();
+card.classList.remove("blur");
+}, 100);
+}, 500);
+}
 
-    function displayQuestion() {
-      const card = document.getElementById("card");
-      card.innerHTML = `
-        <div class="contenedor-volver"><button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">
-          <img src="img/west.svg" alt="Back">
-        </button> </div>
-        <div class="contenedor-principal"> <div class="pregunta"><p class="question" id="question">${decisionTree[currentState].question}</p></div>
-        <div class="button-container" id="buttons">
-          <button id="${currentState}-yes" class="button derecha si" onclick="answer('yes')">Sí</button>
-          <button id="${currentState}-no" class="button abajo no" onclick="answer('no')">No</button>
-        </div>
-        </div>
-      `;
-      setTimeout(setupGlossaryEvents, 0);
-    }
+function displayQuestion() {
+const card = document.getElementById("card");
+card.innerHTML = `
+       <div class="contenedor-volver"><button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">
+         <img src="img/west.svg" alt="Back">
+       </button> </div>
+       <div class="contenedor-principal"> <div class="pregunta"><p class="question" id="question">${decisionTree[currentState].question}</p></div>
+       <div class="button-container" id="buttons">
+         <button id="${currentState}-yes" class="button derecha si" onclick="answer('yes')">Sí</button>
+         <button id="${currentState}-no" class="button abajo no" onclick="answer('no')">No</button>
+       </div>
+       </div>
+     `;
+setTimeout(setupGlossaryEvents, 0);
+}
 
-    function displayResult(result) {
-      const card = document.getElementById("card");
-      card.innerHTML = `
-        <div class="contenedor-volver"><button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">
-          <img src="img/west.svg" alt="Back">
-        </button> </div>
-        <div class="contenedor-principal" style="flex-direction: column;">
-          <div class="respuesta">
-            <h2 class="cloud-name">${result.name}</h2>
-            <div class="description">${result.description}</div>
-            <div class="contenedor-img"> <img src="/nubes/img/${result.name.toLowerCase()}.jpg" alt="${result.name}" style="max-width: 410px; height: auto; margin-top: 20px;" onclick="openGlossaryPopup()"></div>
-          </div>
-          <div class="button-container" id="buttons">
-            <button id="restart-btn" class="button restart" onclick="restart()">Volver a empezar</button>
-          </div>
-        </div>
-      `;
-      setTimeout(setupGlossaryEvents, 0);
-    }
+function displayResult(result) {
+const card = document.getElementById("card");
+card.innerHTML = `
+       <div class="contenedor-volver"><button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">
+         <img src="img/west.svg" alt="Back">
+       </button> </div>
+       <div class="contenedor-principal" style="flex-direction: column;">
+         <div class="respuesta">
+           <h2 class="cloud-name">${result.name}</h2>
+           <div class="description">${result.description}</div>
+           <div class="contenedor-img"> <img src="/nubes/img/${result.name.toLowerCase()}.jpg" alt="${result.name}" style="width: auto; min-height: 460px; margin-top: 20px; max-width: 410px;" onclick="openGlossaryPopup()"></div>
+         </div>
+         <div class="button-container" id="buttons">
+           <button id="restart-btn" class="button restart" onclick="restart()">Volver a empezar</button>
+         </div>
+       </div>
+     `;
+setTimeout(setupGlossaryEvents, 0);
+}
 
-    function restart() {
-      const card = document.getElementById("card");
-      card.classList.add("blur");
-      setTimeout(() => {
-        card.innerHTML = '';
-        setTimeout(() => {
-          currentState = "q1";
-          history = [];
-          isShowingResult = false; // Restablecer al reiniciar
-          displayQuestion();
-          updateProgress();
-          toggleBackButton();
-          card.classList.remove("blur");
-        }, 100);
-      }, 500);
-    }
+function restart() {
+const card = document.getElementById("card");
+card.classList.add("blur");
+setTimeout(() => {
+card.innerHTML = '';
+setTimeout(() => {
+currentState = "q1";
+history = [];
+isShowingResult = false; // Restablecer al reiniciar
+displayQuestion();
+updateProgress();
+toggleBackButton();
+card.classList.remove("blur");
+}, 100);
+}, 500);
+}
 
-    function updateProgress() {
-      const progressDot = document.getElementById("progress-dot");
-      const progressBarWidth = document.querySelector(".progress-bar").offsetWidth;
-      const steps = history.length;
-      const isWelcome = currentState === "welcome";
+function updateProgress() {
+const progressDot = document.getElementById("progress-dot");
+const progressBarWidth = document.querySelector(".progress-bar").offsetWidth;
+const steps = history.length;
+const isWelcome = currentState === "welcome";
 
-      let progressPercent;
-      if (isWelcome) {
-        progressPercent = 0;
-      } else if (isShowingResult) { // Usamos la nueva variable para detectar la página de resultado
-        progressPercent = 100;
-      } else {
-        progressPercent = (steps / maxSteps) * 100;
-      }
+let progressPercent;
+if (isWelcome) {
+progressPercent = 0;
+} else if (isShowingResult) { // Usamos la nueva variable para detectar la página de resultado
+progressPercent = 100;
+} else {
+progressPercent = (steps / maxSteps) * 100;
+}
 
-      const dotPosition = (progressPercent / 100) * (progressBarWidth - 15);
-      progressDot.style.left = `${dotPosition}px`;
-    }
+const dotPosition = (progressPercent / 100) * (progressBarWidth - 15);
+progressDot.style.left = `${dotPosition}px`;
+}
 
-    function toggleBackButton() {
-      const backButton = document.getElementById("back-btn");
-      const isResult = isShowingResult; // Usamos la nueva variable
-      const isWelcome = currentState === "welcome";
+function toggleBackButton() {
+const backButton = document.getElementById("back-btn");
+const isResult = isShowingResult; // Usamos la nueva variable
+const isWelcome = currentState === "welcome";
 
-      if (backButton) {
-        backButton.style.display = (!isWelcome && !isResult) ? "block" : "none";
-      }
-    }
+if (backButton) {
+backButton.style.display = (!isWelcome && !isResult) ? "block" : "none";
+}
+}
 
-    function setupGlossaryEvents() {
-      const terms = document.querySelectorAll('.glossary-term');
-      terms.forEach(term => {
-        term.removeEventListener('click', handleGlossaryClick);
-        term.addEventListener('click', handleGlossaryClick);
-      });
-    }
+function setupGlossaryEvents() {
+const terms = document.querySelectorAll('.glossary-term');
+terms.forEach(term => {
+term.removeEventListener('click', handleGlossaryClick);
+term.addEventListener('click', handleGlossaryClick);
+});
+}
 
-    function handleGlossaryClick(event) {
-      const glossaryId = event.target.getAttribute('data-glossary');
-      lastClickedGlossary = glossaryId;
-      openGlossaryPopup();
-    }
+function handleGlossaryClick(event) {
+const glossaryId = event.target.getAttribute('data-glossary');
+lastClickedGlossary = glossaryId;
+openGlossaryPopup();
+}
 
-    let lastClickedGlossary = null;
+let lastClickedGlossary = null;
 
-    function openGlossaryPopup() {
-      const popup = document.querySelector('.glossary-popup');
-      if (popup) {
-        popup.classList.add('open');
-        if (lastClickedGlossary) {
-          const element = document.getElementById(`glossary-${lastClickedGlossary}`);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }
-      }
-    }
+function openGlossaryPopup() {
+const popup = document.querySelector('.glossary-popup');
+if (popup) {
+popup.classList.add('open');
+if (lastClickedGlossary) {
+const element = document.getElementById(`glossary-${lastClickedGlossary}`);
+if (element) {
+element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+}
+}
+}
 
-    function closeGlossaryPopup() {
-      const popup = document.querySelector('.glossary-popup');
-      if (popup) {
-        popup.classList.remove('open');
-      }
-    }
+function closeGlossaryPopup() {
+const popup = document.querySelector('.glossary-popup');
+if (popup) {
+popup.classList.remove('open');
+}
+}
 
-    updateProgress();
-    toggleBackButton();
-  </script>
+updateProgress();
+toggleBackButton();
+</script>
 </body>
 </html>
