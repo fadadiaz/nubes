@@ -117,7 +117,7 @@
     .contenedor-principal {
       display: flex;
       width: 89vw;
-      height: 100vh;
+      height: 87vh;
       gap: 60px;
       align-items: center;
       justify-content: center;
@@ -397,8 +397,8 @@
   <div class="card welcome" id="card">
     <div class="contenedor-welcome">
       <p class="welcome-text">Identificador de nubes</p>
-      <div class="button-container" id="buttons">
-        <button class="button vamos" style="height: unset;" onclick="startQuiz()">Iniciar</button>
+      <div class="button-container" style="height: unset;" id="buttons">
+        <button class="button vamos" onclick="startQuiz()">Iniciar</button>
       </div>
     </div>
   </div>
@@ -555,7 +555,7 @@
             card.innerHTML = `
              <div class="contenedor-welcome">
                <p class="welcome-text">Identificador de Nubes</p>
-               <div class="button-container" id="buttons">
+               <div class="button-container" style="height: unset;" id="buttons">
                  <button class="button vamos" onclick="startQuiz()">Iniciar</button>
                </div>
              </div>
@@ -590,7 +590,7 @@
        <div class="contenedor-volver"><button id="back-btn" class="back-button" onclick="goBack()" style="display: none;">
          <img src="img/west.svg" alt="Back">
        </button> </div>
-       <div class="contenedor-principal" style="flex-direction: column;margin-top: 20px;justify-content: flex-start;">
+       <div class="contenedor-principal" style="flex-direction: column;margin-top: 20px;justify-content: flex-start; height: unset;">
          <div class="respuesta">
            <h2 class="cloud-name">${result.name}</h2>
            <div class="description">${result.description}</div>
